@@ -7,3 +7,8 @@ ffhqfacealignment-venv/
 __pycache__/
 */__pycache__/
 lib/sfd/s3fd-619a316812.pth
+cncvs
+demo_*
+show_lms_temp
+show_lms_temp1
+cncvs.tar

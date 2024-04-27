@@ -24,8 +24,8 @@ class SFDDetector(FaceDetector):
 	def __init__(self, device, path_to_detector=None, verbose=False):
 		super(SFDDetector, self).__init__(device, verbose)
 		
-		self.device = device
-		if self.device == "cuda":
+		self.device: str = device
+		if self.device.startswith("cuda"):
 			cudnn.benchmark = True
 			self.is_cuda = True
 		else:
@@ -37,7 +37,7 @@ class SFDDetector(FaceDetector):
 		self.face_detector.load_state_dict(model_weights)
 		# self.face_detector.to(device)
 		if self.is_cuda:
-			self.face_detector.cuda()
+			self.face_detector.to(self.device)
 		self.face_detector.eval()
 
 	def detect_from_image(self, tensor_or_path):

@@ -1,0 +1,164 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Python Debugger: cncvs_download_and_process.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "cncvs_download_and_process.py",
+            "console": "integratedTerminal",
+            "args": [
+                "-d",
+                "/data2/CN-CVS/cncvs-stylegan",
+                "-m",
+                "/app/cncvs/speech/",
+                // "-w", "8",
+                "--download_worker",
+                "1",
+                "--transcode_worker",
+                "6",
+                "--process_worker",
+                "6",
+                "-l",
+                "1",
+                "--max_clips_per_speaker",
+                "30",
+                "--cookies",
+                "bilibili_cookies.txt",
+                "--gpus",
+                "0,1"
+            ]
+        },
+        {
+            "name": "convert_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "convert_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset_root",
+                "/data2/CN-CVS/synced",
+                "--output_root",
+                "/data2/CN-CVS/wav2lip_format_synced",
+                "--data_list_path",
+                "/data2/CN-CVS/filtered_synced.txt",
+                "--copy_rois_and_lms",
+                "--max_workers",
+                "4"
+            ]
+        },
+        {
+            "name": "crop_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "crop_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset_root",
+                "/data2/CN-CVS/cncvs-stylegan/final",
+                "--data_list_path",
+                "/data2/CN-CVS/filtered.txt",
+                "--output_root",
+                "/data2/CN-CVS/cropped",
+                "--output_data_list_path",
+                "/data2/CN-CVS/cropped_data_list.txt",
+                "--max_workers",
+                "2"
+            ]
+        },
+        {
+            "name": "split_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "split_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--data_list",
+                "/data2/CN-CVS/filtered_synced.txt",
+                "--split_names",
+                "train_hd_synced,test_hd_synced",
+                "--split_nums=-1,50",
+                "--out_filelist_dir",
+                "/data2/CN-CVS/"
+            ]
+        },
+        {
+            "name": "show_lms.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "show_lms.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--filelist", "/app/dirty.txt",
+                "--dst_root", "/app/show_lms_temp1"
+            ]
+        },
+        {
+            "name": "filter_wrong_face.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "filter_wrong_face.py",
+            "console": "integratedTerminal",
+            "args": [
+                // "--filelist", "/app/dirty.txt",
+                // "--dst_root", "/app/show_lms_temp1"
+                "--dataset_root", "/data2/CN-CVS/cncvs-stylegan/final",
+                "--result_list_path", "/data2/CN-CVS/cncvs-stylegan/result.txt",
+                "--output_path", "/data2/CN-CVS/cncvs-stylegan/wrong_face_list.txt"
+            ]
+        },
+        {
+            "name": "filter_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "filter_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                // "--filelist", "/app/dirty.txt",
+                // "--dst_root", "/app/show_lms_temp1"
+                "--dataset_root", "/data2/CN-CVS/cncvs-stylegan/final",
+                "--result_list_path", "/data2/CN-CVS/cncvs-stylegan/result.txt",
+                "--output_path", "/data2/CN-CVS/filtered.txt",
+                "--min_width", "100",
+                "--blacklist", "/data2/CN-CVS/cncvs-stylegan/wrong_face_list.txt"
+            ] 
+        },
+        {
+            "name": "sync_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "sync_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset_root", "/data2/CN-CVS/cncvs-stylegan/final",
+                "--avsync_result_list", "/data2/CN-CVS/cncvs-stylegan/avsync_result.txt",
+                "--output_dataset_root", "/data2/CN-CVS/synced",
+                "--output_result_list", "/data2/CN-CVS/dataset_sync_result.txt",
+                "--max_workers", "8",
+                "--score_thres", "0.5",
+                "--min_num_samples", "12",
+                "--filter", "true"
+            ] 
+        },
+        {
+            "name": "filter_synced_dataset.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "filter_synced_dataset.py",
+            "console": "integratedTerminal",
+            "args": [
+                // "--filelist", "/app/dirty.txt",
+                // "--dst_root", "/app/show_lms_temp1"
+                "--sync_result_list_path", "/data2/CN-CVS/dataset_sync_result.txt",
+                "--score_thres", "0.43",
+                "--num_samples_thres", "0",
+                "--output_data_list_path", "/data2/CN-CVS/filtered_synced.txt",
+                // "--dry_run"
+            ] 
+        },
+    ]
+}

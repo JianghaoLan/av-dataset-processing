@@ -114,8 +114,8 @@ def get_preds_fromhm(hm, center=None, scale=None):
 
 
 class LandmarksEstimation:
-    def __init__(self, type='3D'):
-        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    def __init__(self, type='3D', device='cuda:0'):
+        self.device = torch.device(device if torch.cuda.is_available() else "cpu")
 
         # Load all needed models - Face detector and Pose detector
         network_size = NetworkSize.LARGE
@@ -128,7 +128,7 @@ class LandmarksEstimation:
 
         # SFD face detection
         path_to_detector = os.path.join(sys.path[0], 'lib/sfd/s3fd-619a316812.pth')
-        self.face_detector = FaceDetector(device='cuda', verbose=False, path_to_detector=path_to_detector)
+        self.face_detector = FaceDetector(device=device, verbose=False, path_to_detector=path_to_detector)
 
         self.transformations_image = transforms.Compose([transforms.Resize(224),
                                                          transforms.CenterCrop(224), transforms.ToTensor(),
@@ -171,7 +171,7 @@ class LandmarksEstimation:
         center[1] = center[1] - (face[3] - face[1]) * 0.12
         scale = (face[2] - face[0] + face[3] - face[1]) / self.face_detector.reference_scale
 
-        inp = crop_torch(image.unsqueeze(0), center, scale).float().cuda()
+        inp = crop_torch(image.unsqueeze(0), center, scale).float().to(self.device)
         inp = inp.div(255.0)
         out = self.face_alignment_net(inp)[-1]
 
@@ -181,7 +181,7 @@ class LandmarksEstimation:
         out = out.cpu()
 
         pts, pts_img = get_preds_fromhm(out, center, scale)
-        out = out.cuda()
+        out = out.to(self.device)
 
         # Added 3D landmark support
         if self.landmarks_type == LandmarksType._3D:
@@ -199,7 +199,7 @@ class LandmarksEstimation:
                 print(heatmaps.shape)
 
             depth_pred = self.depth_prediciton_net(torch.cat((inp, heatmaps), 1)).view(68, 1)
-            pts_img = pts_img.cuda()
+            pts_img = pts_img.to(self.device)
             pts_img = torch.cat((pts_img, depth_pred * (1.0 / (256.0 / (200.0 * scale)))), 1)
 
         else:
@@ -208,9 +208,9 @@ class LandmarksEstimation:
         return pts_img, out
 
     def face_detection(self, image):
-        image_tensor = torch.tensor(np.transpose(image, (2, 0, 1))).float().cuda()
+        image_tensor = torch.tensor(np.transpose(image, (2, 0, 1))).float().to(self.device)
         if len(image_tensor.shape) == 3:
-            image_tensor = image_tensor.unsqueeze(0).cuda()
+            image_tensor = image_tensor.unsqueeze(0).to(self.device)
             detected_faces, error, error_index = self.face_detector.detect_from_batch(image_tensor)
         else:
             detected_faces, error, error_index = self.face_detector.detect_from_batch(image_tensor)
@@ -266,40 +266,56 @@ class LandmarksEstimation:
         return crop
 
     @torch.no_grad()
-    def detect_landmarks(self, image, detected_faces=None):
+    def detect_landmarks(self, image, detected_faces=None, conf_threshold=0.99):
         if detected_faces is None:
             if len(image.shape) == 3:
-                image = image.unsqueeze(0).cuda()
+                image = image.unsqueeze(0).to(self.device)
                 detected_faces, error, error_index = self.face_detector.detect_from_batch(image)
             else:
                 detected_faces, error, error_index = self.face_detector.detect_from_batch(image)
 
-        batch = 0
-        num_faces = 0
-        em_max = -1
-        index_face = 0
-        for face in detected_faces[0]:
-            conf = face[4]
-            w = face[2] - face[0]
-            h = face[3] - face[1]
-            em = w * h
-            if em > em_max:
-                em_max = em
-                index_face = num_faces
-            num_faces += 1
+        # batch = 0
+        # num_faces = 0
+        # em_max = -1
+        # index_face = 0
+        # for face in detected_faces[0]:
+        #     conf = face[4]
+        #     w = face[2] - face[0]
+        #     h = face[3] - face[1]
+        #     em = w * h
+        #     if em > em_max:
+        #         em_max = em
+        #         index_face = num_faces
+        #     num_faces += 1
 
-        if self.landmarks_type == LandmarksType._3D:
-            landmarks = torch.empty((1, 68, 3), requires_grad=True).cuda()
-        else:
-            landmarks = torch.empty((1, 68, 2), requires_grad=True).cuda()
+        # if self.landmarks_type == LandmarksType._3D:
+        #     landmarks = torch.empty((1, 68, 3), requires_grad=True).to(self.device)
+        # else:
+        #     landmarks = torch.empty((1, 68, 2), requires_grad=True).to(self.device)
 
-        counter = 0
-        for face in detected_faces[0]:
-            conf = face[4]
-            if conf > 0.99 and counter == index_face:
-                pts_img, heatmaps = self.find_landmarks(face, image[0])
-                landmarks[batch] = pts_img.cuda()
-                batch += 1
-            counter += 1
+        # counter = 0
+        # for face in detected_faces[0]:
+        #     conf = face[4]
+        #     if conf > 0.99 and counter == index_face:
+        #         pts_img, heatmaps = self.find_landmarks(face, image[0])
+        #         landmarks[batch] = pts_img.to(self.device)
+        #         batch += 1
+        #     counter += 1
+            
+        landmarks_batch = []
+        detected_faces_batch = []
+        for i in range(len(detected_faces)):
+            filtered_landmarks = []
+            filtered_faces = []
+            for face in detected_faces[i]:
+                conf = face[4]
+                if conf > conf_threshold:
+                    pts_img, heatmaps = self.find_landmarks(face, image[i])
+                    filtered_landmarks.append(pts_img.to(self.device))
+                    filtered_faces.append(face)
+                    
+            landmarks_batch.append(filtered_landmarks)
+            detected_faces_batch.append(filtered_faces)
 
-        return landmarks, detected_faces
+        # return landmarks, detected_faces
+        return landmarks_batch, detected_faces_batch

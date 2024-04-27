@@ -100,6 +100,85 @@ def read_image_opencv(image_path):
     return cv2.cvtColor(img, cv2.COLOR_BGR2RGB).astype('uint8')
 
 
+def get_largest_face(det_faces, h, w):
+
+    def get_location(val, length):
+        if val < 0:
+            return 0
+        elif val > length:
+            return length
+        else:
+            return val
+
+    face_areas = []
+    for det_face in det_faces:
+        left = get_location(det_face[0], w)
+        right = get_location(det_face[2], w)
+        top = get_location(det_face[1], h)
+        bottom = get_location(det_face[3], h)
+        face_area = (right - left) * (bottom - top)
+        face_areas.append(face_area)
+    largest_idx = face_areas.index(max(face_areas))
+    return det_faces[largest_idx], largest_idx
+
+
+def get_center_face(det_faces, h=0, w=0, center=None):
+    if center is not None:
+        center = np.array(center)
+    else:
+        center = np.array([w / 2, h / 2])
+    center_dist = []
+    for det_face in det_faces:
+        face_center = np.array([(det_face[0] + det_face[2]) / 2, (det_face[1] + det_face[3]) / 2])
+        dist = np.linalg.norm(face_center - center)
+        center_dist.append(dist)
+    center_idx = center_dist.index(min(center_dist))
+    return det_faces[center_idx], center_idx
+
+
+class NoLandmarksFoundException(Exception):
+    pass
+
+
+class MultiFacesDetectedException(Exception):
+    pass
+
+
+def align_image(le, img, size, conf_threshold, keep_largest=False, disable_multi_faces=False, return_roi_and_landmarks=False, 
+                landmarks=None, detected_faces=None):
+    # Landmark estimation
+    img_tensor = torch.tensor(np.transpose(img, (2, 0, 1))).float().to(le.device)
+    with torch.no_grad():
+        landmarks, detected_faces = le.detect_landmarks(img_tensor.unsqueeze(0), detected_faces=None, conf_threshold=conf_threshold)
+        landmarks, detected_faces = landmarks[0], detected_faces[0]
+    # Align and crop face
+    if len(landmarks) > 0:
+        if len(landmarks) > 1 and disable_multi_faces:
+            raise MultiFacesDetectedException
+        
+        if len(landmarks) == 1:
+            landmarks = landmarks[0]
+            detected_face = detected_faces[0]
+        elif keep_largest:
+            _, h, w = img_tensor.shape   
+            detected_face, face_index = get_largest_face(detected_faces, h, w)
+            landmarks = landmarks[face_index]
+        else:       # keep center
+            _, h, w = img_tensor.shape   
+            detected_face, face_index = get_center_face(detected_faces, h, w)
+            landmarks = landmarks[face_index]
+        landmarks=np.asarray(landmarks[0].detach().cpu().numpy())
+                             
+        img = align_crop_image(image=img,
+                                landmarks=landmarks,
+                                transform_size=size)
+        if return_roi_and_landmarks:
+            return img, detected_face, landmarks
+        return img
+    else:
+        raise NoLandmarksFoundException()
+
+
 def main():
     """TODO: add docstring
     """
@@ -107,6 +186,8 @@ def main():
     parser.add_argument('--input-dir', type=str, required=True, help='set input image directory')
     parser.add_argument('--output-dir', type=str, help='set output image directory')
     parser.add_argument('--size', type=int, default=256, help='set output size of cropped image')
+    parser.add_argument('--conf-threshold', type=float, default=0.99, help='confidence threshold')
+    parser.add_argument('--keep-largest', action='store_true', help='Only keep largest face instead of center face')
     args = parser.parse_args()
 
     # Get input/output directories
@@ -132,19 +213,37 @@ def main():
         # Open input image
         img = read_image_opencv(img_file).copy()
 
-        # Landmark estimation
-        img_tensor = torch.tensor(np.transpose(img, (2, 0, 1))).float().cuda()
-        with torch.no_grad():
-            landmarks, detected_faces = le.detect_landmarks(img_tensor.unsqueeze(0),detected_faces=None)
-        # Align and crop face
-        if len(landmarks) > 0:
-            img = align_crop_image(image=img,
-                                   landmarks=np.asarray(landmarks[0].detach().cpu().numpy()),
-                                   transform_size=args.size)
-        else:
+        # # Landmark estimation
+        # img_tensor = torch.tensor(np.transpose(img, (2, 0, 1))).float().cuda()
+        # with torch.no_grad():
+        #     landmarks, detected_faces = le.detect_landmarks(img_tensor.unsqueeze(0), detected_faces=None, conf_threshold=args.conf_threshold)
+        #     landmarks, detected_faces = landmarks[0], detected_faces[0]
+        # # Align and crop face
+        # if len(landmarks) > 0:
+        #     if args.keep_largest:
+        #         _, h, w = img_tensor.shape   
+        #         _, face_index = get_largest_face(detected_faces, h, w)
+        #         landmarks = landmarks[face_index]
+        #     else:       # keep center
+        #         _, h, w = img_tensor.shape   
+        #         _, face_index = get_center_face(detected_faces, h, w)
+        #         landmarks = landmarks[face_index]
+            
+        #     img = align_crop_image(image=img,
+        #                            landmarks=np.asarray(landmarks[0].detach().cpu().numpy()),
+        #                            transform_size=args.size)
+        # else:
+        #     print("#. Warning: No landmarks found in {}".format(img_file))
+        #     with open('issues.txt', 'a' if osp.exists('issues.txt') else 'w') as f:
+        #         f.write("{}\n".format(img_file))
+        
+        try:
+            img = align_image(le, img, args.size, args.conf_threshold, args.keep_largest)
+        except NoLandmarksFoundException:
             print("#. Warning: No landmarks found in {}".format(img_file))
             with open('issues.txt', 'a' if osp.exists('issues.txt') else 'w') as f:
                 f.write("{}\n".format(img_file))
+            continue
 
         # Save output image
         cv2.imwrite(osp.join(output_dir, osp.split(img_file)[-1]), cv2.cvtColor(img.copy(), cv2.COLOR_RGB2BGR))

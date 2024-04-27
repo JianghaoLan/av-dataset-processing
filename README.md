@@ -1,3 +1,25 @@
+# 环境镜像
+
+```shell
+docker build -t ffhq-face-align:1.2 \
+--build-arg http_proxy=http://192.168.1.87:7890 \
+--build-arg https_proxy=http://192.168.1.87:7890 \
+--build-arg no_proxy=localhost,127.0.0.1 \
+--progress plain .
+```
+
+```shell
+docker run --name ffhq-face-align \
+-v /your/data:/data \
+-v /project/code:/app \
+--gpus all \
+-it ffhq-face-align:1.2
+```
+
+以下为项目原README内容
+
+---
+
 # FFHQFaceAlignment
 
 This is an auxiliary repo for aligning and cropping faces given in arbitrary input images in order to obtain face images similar to ones provided in the FFHQ dataset. Note that only single faces will be cropped from each input image. The cropped face images may subsequently be used for StyleGAN training or for StyleGAN inversion tasks (e.g., using [HyperStyle](https://github.com/yuval-alaluf/hyperstyle)). For detecting the face in each input image we use the S³FD [1] face detector and for aligning the face we use the landmark estimation method proposed in [2]. A few examples are shown in the figure below.

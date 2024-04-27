@@ -1,0 +1,158 @@
+"""
+Crop processed cncvs dataset by rois.
+"""
+import json
+import threading
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import os
+import argparse
+import shutil
+import traceback
+import cv2
+import numpy as np
+
+
+class FileWritter:
+    def __init__(self, filepath, new_file=False):
+        self.filepath = filepath
+        self.mutex = threading.RLock()
+        if new_file and os.path.exists(filepath):
+            os.remove(filepath)
+
+    def append(self, msg):
+        if self.filepath is None:
+            return
+        with self.mutex:
+            with open(self.filepath, 'a') as f:
+                f.write(msg + '\n')
+
+
+def load_rois(rois_path):
+    with open(rois_path) as f:
+        return json.load(f)
+
+
+def gen_src_data(root, data_list_path):
+    with open(data_list_path) as f:
+        lines = f.readlines()
+    for line in lines:
+        line = line.strip()
+        id, vid = line.split('/')
+        yield id, vid, os.path.join(root, line)
+
+
+def crop_image(image, x1, y1, x2, y2):
+    h, w = image.shape[:2]
+    pad_l = max(-x1, 0)
+    pad_r = max(x2 - w, 0)
+    pad_t = max(-y1, 0)
+    pad_b = max(y2 - h, 0)
+    image = np.pad(image, ((pad_t, pad_b), (pad_l, pad_r), (0, 0)), 'constant')
+    x1 = x1 + pad_l
+    x2 = x2 + pad_l
+    y1 = y1 + pad_t
+    y2 = y2 + pad_t
+
+    return image[y1:y2, x1:x2]
+
+
+def crop_video(src_video_path, rois_path, dst_dir):
+    # cmd = ['ffmpeg', '-i', src_video_path, os.path.join(dst_dir, r'%d.png')]   # 使用png无损图片格式
+    try:
+        # subprocess.run(cmd, check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        rois = load_rois(rois_path)
+        
+        video = cv2.VideoCapture(src_video_path)
+        for i, roi in enumerate(rois):
+            success, frame = video.read()
+            if not success:
+                raise Exception(f'Read video frame error: {src_video_path}')
+
+            x1, y1, x2, y2 = map(int, roi[:4])
+            cropped = crop_image(frame, x1, y1, x2, y2)
+            cv2.imwrite(os.path.join(dst_dir, f'{i}.jpg'), cropped)
+    except cv2.error as e:
+        print('[Error] An error happened when saving cropped images.')
+        print('frame shape:', frame.shape)
+        print('cropped frame shape:', cropped.shape)
+        print('roi:', x1, y1, x2, y2)
+        print('src_video_path:', src_video_path)
+        traceback.print_exc()
+        raise e
+    except Exception as e:
+        print('[Error] An error happened when cropping video.')
+        traceback.print_exc()
+        raise e
+
+
+def convert_one(data_path, to_path):
+    if os.path.exists(to_path):
+        shutil.rmtree(to_path)
+    os.makedirs(to_path, exist_ok=True)
+
+    video_path = os.path.join(data_path, 'ori_video.mp4')
+    audio_path = os.path.join(data_path, 'audio.wav')
+    # landmarks_path = os.path.join(data_path, 'landmarks.json')
+    rois_path = os.path.join(data_path, 'rois.json')
+    
+    crop_video(video_path, rois_path, to_path)
+    shutil.copyfile(audio_path, os.path.join(to_path, 'audio.wav'))
+
+
+def crop_dataset(dataset_root, data_list_path, output_root, output_data_list_path, max_workers=4):
+    src_datas = list(gen_src_data(dataset_root, data_list_path))
+    id_num = len(set(map(lambda x: x[0], src_datas)))
+    
+    print('Total video num:', len(src_datas))
+    print('From dir:', dataset_root)
+    print('To dir:', output_root)
+    print('Total id num:', id_num)
+    print('Processing...')
+    
+    out_filelist = FileWritter(output_data_list_path)
+    futures = []
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        done_count = 0
+        for id, vid, data_path in src_datas:
+            dst_dir = os.path.join(output_root, id, vid)
+
+            future = executor.submit(convert_one, data_path, dst_dir)
+            futures.append(future)
+            
+            def done_callback(f, _id=id, _vid=vid):
+                if f.exception is None:
+                    out_filelist.append(f'{_id}/{_vid}')
+            future.add_done_callback(done_callback)
+        for future in as_completed(futures):
+            try:
+                future.result()
+            except Exception as e:
+                print('Exception occured in subprocess:', str(e))
+                traceback.print_exc()
+            done_count += 1
+            if done_count % 100 == 0:
+                print(f'{done_count} / {len(src_datas)} completed.')
+
+    print('Success.')
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset_root', type=str, required=True, help='root of processed dataset.')
+    parser.add_argument('--data_list_path', type=str, required=True, help='path of data list file.')
+    parser.add_argument('--output_root', type=str, required=True, help='root of output dataset.')
+    parser.add_argument('--output_data_list_path', type=str, required=True, help='root of result filelist generated by download_and_process.py')
+    parser.add_argument('--max_workers', type=int, default=4, help='max number of workers in process pool')
+    args = parser.parse_args()
+
+    dataset_root = args.dataset_root
+    data_list_path = args.data_list_path
+    output_root = args.output_root
+    output_data_list_path = args.output_data_list_path
+    max_workers = args.max_workers
+
+    crop_dataset(dataset_root, data_list_path, output_root, output_data_list_path, max_workers=max_workers)
+
+
+if __name__ == '__main__':
+    main()

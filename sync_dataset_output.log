@@ -1,0 +1,485 @@
+Output dataset root: /data2/CN-CVS/synced
+Output list path: /data2/CN-CVS/dataset_sync_result.txt
+Process 100 / 44860 completed. | success: 99 / no_enough_samples: 1
+Process 200 / 44860 completed. | success: 196 / no_enough_samples: 4
+Process 300 / 44860 completed. | success: 292 / no_enough_samples: 8
+Process 400 / 44860 completed. | success: 390 / no_enough_samples: 10
+Process 500 / 44860 completed. | success: 489 / no_enough_samples: 11
+Process 600 / 44860 completed. | success: 586 / no_enough_samples: 14
+Process 700 / 44860 completed. | success: 684 / no_enough_samples: 16
+Process 800 / 44860 completed. | success: 781 / no_enough_samples: 19
+Process 900 / 44860 completed. | success: 880 / no_enough_samples: 20
+Process 1000 / 44860 completed. | success: 975 / no_enough_samples: 25
+Process 1100 / 44860 completed. | success: 1070 / no_enough_samples: 30
+Process 1200 / 44860 completed. | success: 1166 / no_enough_samples: 34
+Process 1300 / 44860 completed. | success: 1263 / no_enough_samples: 37
+Process 1400 / 44860 completed. | success: 1361 / no_enough_samples: 39
+Process 1500 / 44860 completed. | success: 1458 / no_enough_samples: 42
+Process 1600 / 44860 completed. | success: 1558 / no_enough_samples: 42
+Process 1700 / 44860 completed. | success: 1657 / no_enough_samples: 43
+Process 1800 / 44860 completed. | success: 1754 / no_enough_samples: 45 / low_score: 1
+Process 1900 / 44860 completed. | success: 1854 / no_enough_samples: 45 / low_score: 1
+Process 2000 / 44860 completed. | success: 1949 / no_enough_samples: 50 / low_score: 1
+Process 2100 / 44860 completed. | success: 2046 / no_enough_samples: 53 / low_score: 1
+Process 2200 / 44860 completed. | success: 2146 / no_enough_samples: 53 / low_score: 1
+Process 2300 / 44860 completed. | success: 2243 / no_enough_samples: 56 / low_score: 1
+Process 2400 / 44860 completed. | success: 2339 / no_enough_samples: 57 / low_score: 4
+Process 2500 / 44860 completed. | success: 2436 / no_enough_samples: 59 / low_score: 5
+Process 2600 / 44860 completed. | success: 2535 / no_enough_samples: 60 / low_score: 5
+Process 2700 / 44860 completed. | success: 2632 / no_enough_samples: 63 / low_score: 5
+Process 2800 / 44860 completed. | success: 2723 / no_enough_samples: 65 / low_score: 12
+Process 2900 / 44860 completed. | success: 2822 / no_enough_samples: 66 / low_score: 12
+Process 3000 / 44860 completed. | success: 2920 / no_enough_samples: 68 / low_score: 12
+Process 3100 / 44860 completed. | success: 3015 / no_enough_samples: 72 / low_score: 13
+Process 3200 / 44860 completed. | success: 3114 / no_enough_samples: 73 / low_score: 13
+Process 3300 / 44860 completed. | success: 3213 / no_enough_samples: 74 / low_score: 13
+Process 3400 / 44860 completed. | success: 3313 / no_enough_samples: 74 / low_score: 13
+Process 3500 / 44860 completed. | success: 3413 / no_enough_samples: 74 / low_score: 13
+Process 3600 / 44860 completed. | success: 3512 / no_enough_samples: 75 / low_score: 13
+Process 3700 / 44860 completed. | success: 3610 / no_enough_samples: 77 / low_score: 13
+Process 3800 / 44860 completed. | success: 3707 / no_enough_samples: 80 / low_score: 13
+Process 3900 / 44860 completed. | success: 3806 / no_enough_samples: 81 / low_score: 13
+Process 4000 / 44860 completed. | success: 3905 / no_enough_samples: 82 / low_score: 13
+Process 4100 / 44860 completed. | success: 4004 / no_enough_samples: 83 / low_score: 13
+Process 4200 / 44860 completed. | success: 4103 / no_enough_samples: 84 / low_score: 13
+Process 4300 / 44860 completed. | success: 4201 / no_enough_samples: 86 / low_score: 13
+Process 4400 / 44860 completed. | success: 4297 / no_enough_samples: 90 / low_score: 13
+Process 4500 / 44860 completed. | success: 4394 / no_enough_samples: 91 / low_score: 15
+Process 4600 / 44860 completed. | success: 4491 / no_enough_samples: 94 / low_score: 15
+Process 4700 / 44860 completed. | success: 4590 / no_enough_samples: 95 / low_score: 15
+Process 4800 / 44860 completed. | success: 4689 / no_enough_samples: 96 / low_score: 15
+Process 4900 / 44860 completed. | success: 4789 / no_enough_samples: 96 / low_score: 15
+Process 5000 / 44860 completed. | success: 4889 / no_enough_samples: 96 / low_score: 15
+Process 5100 / 44860 completed. | success: 4986 / no_enough_samples: 99 / low_score: 15
+Process 5200 / 44860 completed. | success: 5084 / no_enough_samples: 101 / low_score: 15
+Process 5300 / 44860 completed. | success: 5181 / no_enough_samples: 104 / low_score: 15
+Process 5400 / 44860 completed. | success: 5281 / no_enough_samples: 104 / low_score: 15
+Process 5500 / 44860 completed. | success: 5380 / no_enough_samples: 105 / low_score: 15
+Process 5600 / 44860 completed. | success: 5479 / no_enough_samples: 106 / low_score: 15
+Process 5700 / 44860 completed. | success: 5579 / no_enough_samples: 106 / low_score: 15
+Process 5800 / 44860 completed. | success: 5676 / no_enough_samples: 109 / low_score: 15
+Process 5900 / 44860 completed. | success: 5775 / no_enough_samples: 110 / low_score: 15
+Process 6000 / 44860 completed. | success: 5874 / no_enough_samples: 111 / low_score: 15
+Process 6100 / 44860 completed. | success: 5972 / no_enough_samples: 113 / low_score: 15
+Process 6200 / 44860 completed. | success: 6070 / no_enough_samples: 115 / low_score: 15
+Process 6300 / 44860 completed. | success: 6169 / no_enough_samples: 116 / low_score: 15
+Process 6400 / 44860 completed. | success: 6266 / no_enough_samples: 119 / low_score: 15
+Process 6500 / 44860 completed. | success: 6362 / no_enough_samples: 122 / low_score: 16
+Process 6600 / 44860 completed. | success: 6459 / no_enough_samples: 125 / low_score: 16
+Process 6700 / 44860 completed. | success: 6553 / no_enough_samples: 131 / low_score: 16
+Process 6800 / 44860 completed. | success: 6649 / no_enough_samples: 135 / low_score: 16
+Process 6900 / 44860 completed. | success: 6747 / no_enough_samples: 137 / low_score: 16
+Process 7000 / 44860 completed. | success: 6845 / no_enough_samples: 139 / low_score: 16
+Process 7100 / 44860 completed. | success: 6944 / no_enough_samples: 140 / low_score: 16
+Process 7200 / 44860 completed. | success: 7041 / no_enough_samples: 143 / low_score: 16
+Process 7300 / 44860 completed. | success: 7138 / no_enough_samples: 146 / low_score: 16
+Process 7400 / 44860 completed. | success: 7237 / no_enough_samples: 147 / low_score: 16
+Process 7500 / 44860 completed. | success: 7335 / no_enough_samples: 149 / low_score: 16
+Process 7600 / 44860 completed. | success: 7432 / no_enough_samples: 152 / low_score: 16
+Process 7700 / 44860 completed. | success: 7528 / no_enough_samples: 155 / low_score: 17
+Process 7800 / 44860 completed. | success: 7625 / no_enough_samples: 158 / low_score: 17
+Process 7900 / 44860 completed. | success: 7724 / no_enough_samples: 159 / low_score: 17
+Process 8000 / 44860 completed. | success: 7823 / no_enough_samples: 160 / low_score: 17
+Process 8100 / 44860 completed. | success: 7920 / no_enough_samples: 163 / low_score: 17
+Process 8200 / 44860 completed. | success: 8017 / no_enough_samples: 166 / low_score: 17
+Process 8300 / 44860 completed. | success: 8113 / no_enough_samples: 168 / low_score: 19
+Process 8400 / 44860 completed. | success: 8211 / no_enough_samples: 170 / low_score: 19
+Process 8500 / 44860 completed. | success: 8310 / no_enough_samples: 171 / low_score: 19
+Process 8600 / 44860 completed. | success: 8409 / no_enough_samples: 172 / low_score: 19
+Process 8700 / 44860 completed. | success: 8508 / no_enough_samples: 173 / low_score: 19
+Process 8800 / 44860 completed. | success: 8607 / no_enough_samples: 174 / low_score: 19
+Process 8900 / 44860 completed. | success: 8706 / no_enough_samples: 175 / low_score: 19
+Process 9000 / 44860 completed. | success: 8806 / no_enough_samples: 175 / low_score: 19
+Process 9100 / 44860 completed. | success: 8902 / no_enough_samples: 179 / low_score: 19
+Process 9200 / 44860 completed. | success: 9002 / no_enough_samples: 179 / low_score: 19
+Process 9300 / 44860 completed. | success: 9101 / no_enough_samples: 180 / low_score: 19
+Process 9400 / 44860 completed. | success: 9199 / no_enough_samples: 182 / low_score: 19
+Process 9500 / 44860 completed. | success: 9297 / no_enough_samples: 184 / low_score: 19
+Process 9600 / 44860 completed. | success: 9395 / no_enough_samples: 186 / low_score: 19
+Process 9700 / 44860 completed. | success: 9495 / no_enough_samples: 186 / low_score: 19
+Process 9800 / 44860 completed. | success: 9594 / no_enough_samples: 187 / low_score: 19
+Process 9900 / 44860 completed. | success: 9694 / no_enough_samples: 187 / low_score: 19
+Process 10000 / 44860 completed. | success: 9793 / no_enough_samples: 188 / low_score: 19
+Process 10100 / 44860 completed. | success: 9892 / no_enough_samples: 189 / low_score: 19
+Process 10200 / 44860 completed. | success: 9990 / no_enough_samples: 191 / low_score: 19
+Process 10300 / 44860 completed. | success: 10088 / no_enough_samples: 193 / low_score: 19
+Process 10400 / 44860 completed. | success: 10187 / no_enough_samples: 194 / low_score: 19
+Process 10500 / 44860 completed. | success: 10287 / no_enough_samples: 194 / low_score: 19
+Process 10600 / 44860 completed. | success: 10385 / no_enough_samples: 196 / low_score: 19
+Process 10700 / 44860 completed. | success: 10483 / no_enough_samples: 198 / low_score: 19
+Process 10800 / 44860 completed. | success: 10581 / no_enough_samples: 200 / low_score: 19
+Process 10900 / 44860 completed. | success: 10677 / no_enough_samples: 204 / low_score: 19
+Process 11000 / 44860 completed. | success: 10774 / no_enough_samples: 207 / low_score: 19
+Process 11100 / 44860 completed. | success: 10873 / no_enough_samples: 208 / low_score: 19
+Process 11200 / 44860 completed. | success: 10971 / no_enough_samples: 210 / low_score: 19
+Process 11300 / 44860 completed. | success: 11069 / no_enough_samples: 212 / low_score: 19
+Process 11400 / 44860 completed. | success: 11168 / no_enough_samples: 213 / low_score: 19
+Process 11500 / 44860 completed. | success: 11267 / no_enough_samples: 214 / low_score: 19
+Process 11600 / 44860 completed. | success: 11363 / no_enough_samples: 218 / low_score: 19
+Process 11700 / 44860 completed. | success: 11460 / no_enough_samples: 221 / low_score: 19
+Process 11800 / 44860 completed. | success: 11559 / no_enough_samples: 222 / low_score: 19
+Process 11900 / 44860 completed. | success: 11657 / no_enough_samples: 223 / low_score: 20
+Process 12000 / 44860 completed. | success: 11754 / no_enough_samples: 226 / low_score: 20
+Process 12100 / 44860 completed. | success: 11853 / no_enough_samples: 227 / low_score: 20
+Process 12200 / 44860 completed. | success: 11951 / no_enough_samples: 229 / low_score: 20
+Process 12300 / 44860 completed. | success: 12051 / no_enough_samples: 229 / low_score: 20
+Process 12400 / 44860 completed. | success: 12150 / no_enough_samples: 230 / low_score: 20
+Process 12500 / 44860 completed. | success: 12248 / no_enough_samples: 231 / low_score: 21
+Process 12600 / 44860 completed. | success: 12347 / no_enough_samples: 232 / low_score: 21
+Process 12700 / 44860 completed. | success: 12447 / no_enough_samples: 232 / low_score: 21
+Process 12800 / 44860 completed. | success: 12545 / no_enough_samples: 234 / low_score: 21
+Process 12900 / 44860 completed. | success: 12645 / no_enough_samples: 234 / low_score: 21
+Process 13000 / 44860 completed. | success: 12745 / no_enough_samples: 234 / low_score: 21
+Process 13100 / 44860 completed. | success: 12843 / no_enough_samples: 236 / low_score: 21
+Process 13200 / 44860 completed. | success: 12943 / no_enough_samples: 236 / low_score: 21
+Process 13300 / 44860 completed. | success: 13038 / no_enough_samples: 241 / low_score: 21
+Process 13400 / 44860 completed. | success: 13135 / no_enough_samples: 244 / low_score: 21
+Process 13500 / 44860 completed. | success: 13233 / no_enough_samples: 246 / low_score: 21
+Process 13600 / 44860 completed. | success: 13327 / no_enough_samples: 252 / low_score: 21
+Process 13700 / 44860 completed. | success: 13425 / no_enough_samples: 254 / low_score: 21
+Process 13800 / 44860 completed. | success: 13523 / no_enough_samples: 256 / low_score: 21
+Process 13900 / 44860 completed. | success: 13620 / no_enough_samples: 259 / low_score: 21
+Process 14000 / 44860 completed. | success: 13717 / no_enough_samples: 261 / low_score: 22
+Process 14100 / 44860 completed. | success: 13817 / no_enough_samples: 261 / low_score: 22
+Process 14200 / 44860 completed. | success: 13914 / no_enough_samples: 264 / low_score: 22
+Process 14300 / 44860 completed. | success: 14012 / no_enough_samples: 266 / low_score: 22
+Process 14400 / 44860 completed. | success: 14108 / no_enough_samples: 270 / low_score: 22
+Process 14500 / 44860 completed. | success: 14208 / no_enough_samples: 270 / low_score: 22
+Process 14600 / 44860 completed. | success: 14305 / no_enough_samples: 273 / low_score: 22
+Process 14700 / 44860 completed. | success: 14405 / no_enough_samples: 273 / low_score: 22
+Process 14800 / 44860 completed. | success: 14505 / no_enough_samples: 273 / low_score: 22
+Process 14900 / 44860 completed. | success: 14605 / no_enough_samples: 273 / low_score: 22
+Process 15000 / 44860 completed. | success: 14702 / no_enough_samples: 276 / low_score: 22
+Process 15100 / 44860 completed. | success: 14799 / no_enough_samples: 278 / low_score: 23
+Process 15200 / 44860 completed. | success: 14899 / no_enough_samples: 278 / low_score: 23
+Process 15300 / 44860 completed. | success: 14997 / no_enough_samples: 280 / low_score: 23
+Process 15400 / 44860 completed. | success: 15096 / no_enough_samples: 281 / low_score: 23
+Process 15500 / 44860 completed. | success: 15194 / no_enough_samples: 283 / low_score: 23
+Process 15600 / 44860 completed. | success: 15290 / no_enough_samples: 286 / low_score: 24
+Process 15700 / 44860 completed. | success: 15388 / no_enough_samples: 288 / low_score: 24
+Process 15800 / 44860 completed. | success: 15487 / no_enough_samples: 289 / low_score: 24
+Process 15900 / 44860 completed. | success: 15587 / no_enough_samples: 289 / low_score: 24
+Process 16000 / 44860 completed. | success: 15685 / no_enough_samples: 291 / low_score: 24
+Process 16100 / 44860 completed. | success: 15785 / no_enough_samples: 291 / low_score: 24
+Process 16200 / 44860 completed. | success: 15884 / no_enough_samples: 291 / low_score: 25
+Process 16300 / 44860 completed. | success: 15983 / no_enough_samples: 292 / low_score: 25
+Process 16400 / 44860 completed. | success: 16082 / no_enough_samples: 292 / low_score: 26
+Process 16500 / 44860 completed. | success: 16181 / no_enough_samples: 292 / low_score: 27
+Process 16600 / 44860 completed. | success: 16281 / no_enough_samples: 292 / low_score: 27
+Process 16700 / 44860 completed. | success: 16379 / no_enough_samples: 293 / low_score: 28
+Process 16800 / 44860 completed. | success: 16478 / no_enough_samples: 294 / low_score: 28
+Process 16900 / 44860 completed. | success: 16578 / no_enough_samples: 294 / low_score: 28
+Process 17000 / 44860 completed. | success: 16675 / no_enough_samples: 297 / low_score: 28
+Process 17100 / 44860 completed. | success: 16770 / no_enough_samples: 302 / low_score: 28
+Process 17200 / 44860 completed. | success: 16867 / no_enough_samples: 305 / low_score: 28
+Process 17300 / 44860 completed. | success: 16967 / no_enough_samples: 305 / low_score: 28
+Process 17400 / 44860 completed. | success: 17067 / no_enough_samples: 305 / low_score: 28
+Process 17500 / 44860 completed. | success: 17167 / no_enough_samples: 305 / low_score: 28
+Process 17600 / 44860 completed. | success: 17264 / no_enough_samples: 307 / low_score: 29
+Process 17700 / 44860 completed. | success: 17362 / no_enough_samples: 309 / low_score: 29
+Process 17800 / 44860 completed. | success: 17461 / no_enough_samples: 310 / low_score: 29
+Process 17900 / 44860 completed. | success: 17560 / no_enough_samples: 311 / low_score: 29
+Process 18000 / 44860 completed. | success: 17660 / no_enough_samples: 311 / low_score: 29
+Process 18100 / 44860 completed. | success: 17759 / no_enough_samples: 312 / low_score: 29
+Process 18200 / 44860 completed. | success: 17856 / no_enough_samples: 315 / low_score: 29
+Process 18300 / 44860 completed. | success: 17956 / no_enough_samples: 315 / low_score: 29
+Process 18400 / 44860 completed. | success: 18053 / no_enough_samples: 318 / low_score: 29
+Process 18500 / 44860 completed. | success: 18152 / no_enough_samples: 319 / low_score: 29
+Process 18600 / 44860 completed. | success: 18249 / no_enough_samples: 321 / low_score: 30
+Process 18700 / 44860 completed. | success: 18346 / no_enough_samples: 322 / low_score: 32
+Process 18800 / 44860 completed. | success: 18444 / no_enough_samples: 324 / low_score: 32
+Process 18900 / 44860 completed. | success: 18544 / no_enough_samples: 324 / low_score: 32
+Process 19000 / 44860 completed. | success: 18643 / no_enough_samples: 325 / low_score: 32
+Process 19100 / 44860 completed. | success: 18743 / no_enough_samples: 325 / low_score: 32
+Process 19200 / 44860 completed. | success: 18842 / no_enough_samples: 326 / low_score: 32
+Process 19300 / 44860 completed. | success: 18938 / no_enough_samples: 330 / low_score: 32
+Process 19400 / 44860 completed. | success: 19038 / no_enough_samples: 330 / low_score: 32
+Process 19500 / 44860 completed. | success: 19138 / no_enough_samples: 330 / low_score: 32
+Process 19600 / 44860 completed. | success: 19238 / no_enough_samples: 330 / low_score: 32
+Process 19700 / 44860 completed. | success: 19335 / no_enough_samples: 333 / low_score: 32
+Process 19800 / 44860 completed. | success: 19435 / no_enough_samples: 333 / low_score: 32
+Process 19900 / 44860 completed. | success: 19531 / no_enough_samples: 337 / low_score: 32
+Process 20000 / 44860 completed. | success: 19630 / no_enough_samples: 338 / low_score: 32
+Process 20100 / 44860 completed. | success: 19730 / no_enough_samples: 338 / low_score: 32
+Process 20200 / 44860 completed. | success: 19827 / no_enough_samples: 341 / low_score: 32
+Process 20300 / 44860 completed. | success: 19927 / no_enough_samples: 341 / low_score: 32
+Process 20400 / 44860 completed. | success: 20025 / no_enough_samples: 343 / low_score: 32
+Process 20500 / 44860 completed. | success: 20125 / no_enough_samples: 343 / low_score: 32
+Process 20600 / 44860 completed. | success: 20225 / no_enough_samples: 343 / low_score: 32
+Process 20700 / 44860 completed. | success: 20324 / no_enough_samples: 344 / low_score: 32
+Process 20800 / 44860 completed. | success: 20422 / no_enough_samples: 346 / low_score: 32
+Process 20900 / 44860 completed. | success: 20522 / no_enough_samples: 346 / low_score: 32
+Process 21000 / 44860 completed. | success: 20620 / no_enough_samples: 348 / low_score: 32
+Process 21100 / 44860 completed. | success: 20719 / no_enough_samples: 349 / low_score: 32
+Process 21200 / 44860 completed. | success: 20818 / no_enough_samples: 350 / low_score: 32
+Process 21300 / 44860 completed. | success: 20917 / no_enough_samples: 351 / low_score: 32
+Process 21400 / 44860 completed. | success: 21017 / no_enough_samples: 351 / low_score: 32
+Process 21500 / 44860 completed. | success: 21115 / no_enough_samples: 351 / low_score: 34
+Process 21600 / 44860 completed. | success: 21214 / no_enough_samples: 351 / low_score: 35
+Process 21700 / 44860 completed. | success: 21308 / no_enough_samples: 357 / low_score: 35
+Process 21800 / 44860 completed. | success: 21406 / no_enough_samples: 359 / low_score: 35
+Process 21900 / 44860 completed. | success: 21506 / no_enough_samples: 359 / low_score: 35
+Process 22000 / 44860 completed. | success: 21605 / no_enough_samples: 360 / low_score: 35
+Process 22100 / 44860 completed. | success: 21702 / no_enough_samples: 363 / low_score: 35
+Process 22200 / 44860 completed. | success: 21799 / no_enough_samples: 366 / low_score: 35
+Process 22300 / 44860 completed. | success: 21899 / no_enough_samples: 366 / low_score: 35
+Process 22400 / 44860 completed. | success: 21998 / no_enough_samples: 367 / low_score: 35
+Process 22500 / 44860 completed. | success: 22098 / no_enough_samples: 367 / low_score: 35
+Process 22600 / 44860 completed. | success: 22198 / no_enough_samples: 367 / low_score: 35
+Process 22700 / 44860 completed. | success: 22297 / no_enough_samples: 368 / low_score: 35
+Process 22800 / 44860 completed. | success: 22397 / no_enough_samples: 368 / low_score: 35
+Process 22900 / 44860 completed. | success: 22495 / no_enough_samples: 368 / low_score: 37
+Process 23000 / 44860 completed. | success: 22595 / no_enough_samples: 368 / low_score: 37
+Process 23100 / 44860 completed. | success: 22695 / no_enough_samples: 368 / low_score: 37
+Process 23200 / 44860 completed. | success: 22794 / no_enough_samples: 369 / low_score: 37
+Process 23300 / 44860 completed. | success: 22893 / no_enough_samples: 370 / low_score: 37
+Process 23400 / 44860 completed. | success: 22992 / no_enough_samples: 371 / low_score: 37
+Process 23500 / 44860 completed. | success: 23091 / no_enough_samples: 372 / low_score: 37
+Process 23600 / 44860 completed. | success: 23190 / no_enough_samples: 373 / low_score: 37
+Process 23700 / 44860 completed. | success: 23285 / no_enough_samples: 375 / low_score: 40
+Process 23800 / 44860 completed. | success: 23383 / no_enough_samples: 377 / low_score: 40
+Process 23900 / 44860 completed. | success: 23483 / no_enough_samples: 377 / low_score: 40
+Process 24000 / 44860 completed. | success: 23582 / no_enough_samples: 378 / low_score: 40
+Process 24100 / 44860 completed. | success: 23681 / no_enough_samples: 379 / low_score: 40
+Process 24200 / 44860 completed. | success: 23781 / no_enough_samples: 379 / low_score: 40
+Process 24300 / 44860 completed. | success: 23876 / no_enough_samples: 384 / low_score: 40
+Process 24400 / 44860 completed. | success: 23974 / no_enough_samples: 386 / low_score: 40
+Process 24500 / 44860 completed. | success: 24072 / no_enough_samples: 388 / low_score: 40
+Process 24600 / 44860 completed. | success: 24171 / no_enough_samples: 389 / low_score: 40
+Process 24700 / 44860 completed. | success: 24268 / no_enough_samples: 392 / low_score: 40
+Process 24800 / 44860 completed. | success: 24366 / no_enough_samples: 394 / low_score: 40
+Process 24900 / 44860 completed. | success: 24463 / no_enough_samples: 397 / low_score: 40
+Process 25000 / 44860 completed. | success: 24562 / no_enough_samples: 398 / low_score: 40
+Process 25100 / 44860 completed. | success: 24660 / no_enough_samples: 400 / low_score: 40
+Process 25200 / 44860 completed. | success: 24757 / no_enough_samples: 402 / low_score: 41
+Process 25300 / 44860 completed. | success: 24857 / no_enough_samples: 402 / low_score: 41
+Process 25400 / 44860 completed. | success: 24956 / no_enough_samples: 403 / low_score: 41
+Process 25500 / 44860 completed. | success: 25055 / no_enough_samples: 404 / low_score: 41
+Process 25600 / 44860 completed. | success: 25152 / no_enough_samples: 407 / low_score: 41
+Process 25700 / 44860 completed. | success: 25250 / no_enough_samples: 409 / low_score: 41
+Process 25800 / 44860 completed. | success: 25349 / no_enough_samples: 410 / low_score: 41
+Process 25900 / 44860 completed. | success: 25448 / no_enough_samples: 411 / low_score: 41
+Process 26000 / 44860 completed. | success: 25547 / no_enough_samples: 412 / low_score: 41
+Process 26100 / 44860 completed. | success: 25646 / no_enough_samples: 413 / low_score: 41
+Process 26200 / 44860 completed. | success: 25740 / no_enough_samples: 417 / low_score: 43
+Process 26300 / 44860 completed. | success: 25840 / no_enough_samples: 417 / low_score: 43
+Process 26400 / 44860 completed. | success: 25938 / no_enough_samples: 419 / low_score: 43
+Process 26500 / 44860 completed. | success: 26037 / no_enough_samples: 420 / low_score: 43
+Process 26600 / 44860 completed. | success: 26135 / no_enough_samples: 422 / low_score: 43
+Process 26700 / 44860 completed. | success: 26235 / no_enough_samples: 422 / low_score: 43
+Process 26800 / 44860 completed. | success: 26335 / no_enough_samples: 422 / low_score: 43
+Process 26900 / 44860 completed. | success: 26435 / no_enough_samples: 422 / low_score: 43
+Process 27000 / 44860 completed. | success: 26535 / no_enough_samples: 422 / low_score: 43
+Process 27100 / 44860 completed. | success: 26634 / no_enough_samples: 423 / low_score: 43
+Process 27200 / 44860 completed. | success: 26734 / no_enough_samples: 423 / low_score: 43
+Process 27300 / 44860 completed. | success: 26834 / no_enough_samples: 423 / low_score: 43
+Process 27400 / 44860 completed. | success: 26932 / no_enough_samples: 425 / low_score: 43
+Process 27500 / 44860 completed. | success: 27031 / no_enough_samples: 425 / low_score: 44
+Process 27600 / 44860 completed. | success: 27129 / no_enough_samples: 426 / low_score: 45
+Process 27700 / 44860 completed. | success: 27225 / no_enough_samples: 430 / low_score: 45
+Process 27800 / 44860 completed. | success: 27323 / no_enough_samples: 432 / low_score: 45
+Process 27900 / 44860 completed. | success: 27421 / no_enough_samples: 434 / low_score: 45
+Process 28000 / 44860 completed. | success: 27519 / no_enough_samples: 436 / low_score: 45
+Process 28100 / 44860 completed. | success: 27618 / no_enough_samples: 437 / low_score: 45
+Process 28200 / 44860 completed. | success: 27716 / no_enough_samples: 439 / low_score: 45
+Process 28300 / 44860 completed. | success: 27816 / no_enough_samples: 439 / low_score: 45
+Process 28400 / 44860 completed. | success: 27916 / no_enough_samples: 439 / low_score: 45
+Process 28500 / 44860 completed. | success: 28016 / no_enough_samples: 439 / low_score: 45
+Process 28600 / 44860 completed. | success: 28116 / no_enough_samples: 439 / low_score: 45
+Process 28700 / 44860 completed. | success: 28215 / no_enough_samples: 440 / low_score: 45
+Process 28800 / 44860 completed. | success: 28312 / no_enough_samples: 443 / low_score: 45
+Process 28900 / 44860 completed. | success: 28409 / no_enough_samples: 446 / low_score: 45
+Process 29000 / 44860 completed. | success: 28501 / no_enough_samples: 451 / low_score: 48
+Process 29100 / 44860 completed. | success: 28601 / no_enough_samples: 451 / low_score: 48
+Process 29200 / 44860 completed. | success: 28699 / no_enough_samples: 453 / low_score: 48
+Process 29300 / 44860 completed. | success: 28796 / no_enough_samples: 456 / low_score: 48
+Process 29400 / 44860 completed. | success: 28891 / no_enough_samples: 461 / low_score: 48
+Process 29500 / 44860 completed. | success: 28986 / no_enough_samples: 466 / low_score: 48
+Process 29600 / 44860 completed. | success: 29084 / no_enough_samples: 468 / low_score: 48
+Process 29700 / 44860 completed. | success: 29181 / no_enough_samples: 471 / low_score: 48
+Process 29800 / 44860 completed. | success: 29280 / no_enough_samples: 472 / low_score: 48
+Process 29900 / 44860 completed. | success: 29380 / no_enough_samples: 472 / low_score: 48
+Process 30000 / 44860 completed. | success: 29478 / no_enough_samples: 474 / low_score: 48
+Process 30100 / 44860 completed. | success: 29574 / no_enough_samples: 478 / low_score: 48
+Process 30200 / 44860 completed. | success: 29670 / no_enough_samples: 482 / low_score: 48
+Process 30300 / 44860 completed. | success: 29770 / no_enough_samples: 482 / low_score: 48
+Process 30400 / 44860 completed. | success: 29870 / no_enough_samples: 482 / low_score: 48
+Process 30500 / 44860 completed. | success: 29969 / no_enough_samples: 483 / low_score: 48
+Process 30600 / 44860 completed. | success: 30069 / no_enough_samples: 483 / low_score: 48
+Process 30700 / 44860 completed. | success: 30169 / no_enough_samples: 483 / low_score: 48
+Process 30800 / 44860 completed. | success: 30269 / no_enough_samples: 483 / low_score: 48
+Process 30900 / 44860 completed. | success: 30368 / no_enough_samples: 484 / low_score: 48
+Process 31000 / 44860 completed. | success: 30468 / no_enough_samples: 484 / low_score: 48
+Process 31100 / 44860 completed. | success: 30566 / no_enough_samples: 486 / low_score: 48
+Process 31200 / 44860 completed. | success: 30664 / no_enough_samples: 487 / low_score: 49
+Process 31300 / 44860 completed. | success: 30763 / no_enough_samples: 488 / low_score: 49
+Process 31400 / 44860 completed. | success: 30862 / no_enough_samples: 489 / low_score: 49
+Process 31500 / 44860 completed. | success: 30962 / no_enough_samples: 489 / low_score: 49
+Process 31600 / 44860 completed. | success: 31061 / no_enough_samples: 489 / low_score: 50
+Process 31700 / 44860 completed. | success: 31159 / no_enough_samples: 491 / low_score: 50
+Process 31800 / 44860 completed. | success: 31258 / no_enough_samples: 491 / low_score: 51
+Process 31900 / 44860 completed. | success: 31358 / no_enough_samples: 491 / low_score: 51
+Process 32000 / 44860 completed. | success: 31458 / no_enough_samples: 491 / low_score: 51
+Process 32100 / 44860 completed. | success: 31558 / no_enough_samples: 491 / low_score: 51
+Process 32200 / 44860 completed. | success: 31658 / no_enough_samples: 491 / low_score: 51
+Process 32300 / 44860 completed. | success: 31755 / no_enough_samples: 492 / low_score: 53
+Process 32400 / 44860 completed. | success: 31854 / no_enough_samples: 492 / low_score: 54
+Process 32500 / 44860 completed. | success: 31952 / no_enough_samples: 493 / low_score: 55
+Process 32600 / 44860 completed. | success: 32052 / no_enough_samples: 493 / low_score: 55
+Process 32700 / 44860 completed. | success: 32150 / no_enough_samples: 495 / low_score: 55
+Process 32800 / 44860 completed. | success: 32250 / no_enough_samples: 495 / low_score: 55
+Process 32900 / 44860 completed. | success: 32350 / no_enough_samples: 495 / low_score: 55
+Process 33000 / 44860 completed. | success: 32447 / no_enough_samples: 497 / low_score: 56
+Process 33100 / 44860 completed. | success: 32546 / no_enough_samples: 497 / low_score: 57
+Process 33200 / 44860 completed. | success: 32644 / no_enough_samples: 499 / low_score: 57
+Process 33300 / 44860 completed. | success: 32744 / no_enough_samples: 499 / low_score: 57
+Process 33400 / 44860 completed. | success: 32843 / no_enough_samples: 500 / low_score: 57
+Process 33500 / 44860 completed. | success: 32936 / no_enough_samples: 507 / low_score: 57
+Process 33600 / 44860 completed. | success: 33033 / no_enough_samples: 510 / low_score: 57
+Process 33700 / 44860 completed. | success: 33133 / no_enough_samples: 510 / low_score: 57
+Process 33800 / 44860 completed. | success: 33230 / no_enough_samples: 513 / low_score: 57
+Process 33900 / 44860 completed. | success: 33327 / no_enough_samples: 516 / low_score: 57
+Process 34000 / 44860 completed. | success: 33427 / no_enough_samples: 516 / low_score: 57
+Process 34100 / 44860 completed. | success: 33523 / no_enough_samples: 520 / low_score: 57
+Process 34200 / 44860 completed. | success: 33623 / no_enough_samples: 520 / low_score: 57
+Process 34300 / 44860 completed. | success: 33719 / no_enough_samples: 524 / low_score: 57
+Process 34400 / 44860 completed. | success: 33818 / no_enough_samples: 525 / low_score: 57
+Process 34500 / 44860 completed. | success: 33917 / no_enough_samples: 526 / low_score: 57
+Process 34600 / 44860 completed. | success: 34012 / no_enough_samples: 529 / low_score: 59
+Process 34700 / 44860 completed. | success: 34111 / no_enough_samples: 530 / low_score: 59
+Process 34800 / 44860 completed. | success: 34210 / no_enough_samples: 530 / low_score: 60
+Process 34900 / 44860 completed. | success: 34307 / no_enough_samples: 533 / low_score: 60
+Process 35000 / 44860 completed. | success: 34404 / no_enough_samples: 536 / low_score: 60
+Process 35100 / 44860 completed. | success: 34504 / no_enough_samples: 536 / low_score: 60
+Process 35200 / 44860 completed. | success: 34604 / no_enough_samples: 536 / low_score: 60
+Process 35300 / 44860 completed. | success: 34702 / no_enough_samples: 537 / low_score: 61
+Process 35400 / 44860 completed. | success: 34800 / no_enough_samples: 538 / low_score: 62
+Process 35500 / 44860 completed. | success: 34896 / no_enough_samples: 540 / low_score: 64
+Process 35600 / 44860 completed. | success: 34993 / no_enough_samples: 543 / low_score: 64
+Process 35700 / 44860 completed. | success: 35092 / no_enough_samples: 544 / low_score: 64
+Process 35800 / 44860 completed. | success: 35192 / no_enough_samples: 544 / low_score: 64
+Process 35900 / 44860 completed. | success: 35292 / no_enough_samples: 544 / low_score: 64
+Process 36000 / 44860 completed. | success: 35390 / no_enough_samples: 546 / low_score: 64
+Process 36100 / 44860 completed. | success: 35485 / no_enough_samples: 551 / low_score: 64
+Process 36200 / 44860 completed. | success: 35585 / no_enough_samples: 551 / low_score: 64
+Process 36300 / 44860 completed. | success: 35683 / no_enough_samples: 553 / low_score: 64
+Process 36400 / 44860 completed. | success: 35782 / no_enough_samples: 554 / low_score: 64
+Process 36500 / 44860 completed. | success: 35881 / no_enough_samples: 555 / low_score: 64
+Process 36600 / 44860 completed. | success: 35981 / no_enough_samples: 555 / low_score: 64
+Process 36700 / 44860 completed. | success: 36079 / no_enough_samples: 557 / low_score: 64
+Process 36800 / 44860 completed. | success: 36175 / no_enough_samples: 558 / low_score: 67
+Process 36900 / 44860 completed. | success: 36275 / no_enough_samples: 558 / low_score: 67
+Process 37000 / 44860 completed. | success: 36375 / no_enough_samples: 558 / low_score: 67
+Process 37100 / 44860 completed. | success: 36473 / no_enough_samples: 559 / low_score: 68
+Process 37200 / 44860 completed. | success: 36573 / no_enough_samples: 559 / low_score: 68
+Process 37300 / 44860 completed. | success: 36671 / no_enough_samples: 561 / low_score: 68
+Process 37400 / 44860 completed. | success: 36768 / no_enough_samples: 564 / low_score: 68
+Process 37500 / 44860 completed. | success: 36867 / no_enough_samples: 565 / low_score: 68
+Process 37600 / 44860 completed. | success: 36965 / no_enough_samples: 567 / low_score: 68
+Process 37700 / 44860 completed. | success: 37055 / no_enough_samples: 568 / low_score: 77
+Process 37800 / 44860 completed. | success: 37154 / no_enough_samples: 569 / low_score: 77
+Process 37900 / 44860 completed. | success: 37253 / no_enough_samples: 570 / low_score: 77
+Process 38000 / 44860 completed. | success: 37353 / no_enough_samples: 570 / low_score: 77
+Process 38100 / 44860 completed. | success: 37452 / no_enough_samples: 571 / low_score: 77
+Process 38200 / 44860 completed. | success: 37550 / no_enough_samples: 573 / low_score: 77
+Process 38300 / 44860 completed. | success: 37647 / no_enough_samples: 575 / low_score: 78
+Process 38400 / 44860 completed. | success: 37746 / no_enough_samples: 575 / low_score: 79
+Process 38500 / 44860 completed. | success: 37845 / no_enough_samples: 576 / low_score: 79
+Process 38600 / 44860 completed. | success: 37943 / no_enough_samples: 577 / low_score: 80
+Process 38700 / 44860 completed. | success: 38040 / no_enough_samples: 577 / low_score: 83
+Process 38800 / 44860 completed. | success: 38138 / no_enough_samples: 579 / low_score: 83
+Process 38900 / 44860 completed. | success: 38238 / no_enough_samples: 579 / low_score: 83
+Process 39000 / 44860 completed. | success: 38337 / no_enough_samples: 580 / low_score: 83
+Process 39100 / 44860 completed. | success: 38436 / no_enough_samples: 581 / low_score: 83
+Process 39200 / 44860 completed. | success: 38534 / no_enough_samples: 583 / low_score: 83
+Process 39300 / 44860 completed. | success: 38632 / no_enough_samples: 585 / low_score: 83
+Process 39400 / 44860 completed. | success: 38732 / no_enough_samples: 585 / low_score: 83
+Process 39500 / 44860 completed. | success: 38828 / no_enough_samples: 587 / low_score: 85
+Process 39600 / 44860 completed. | success: 38927 / no_enough_samples: 588 / low_score: 85
+Process 39700 / 44860 completed. | success: 39025 / no_enough_samples: 590 / low_score: 85
+Process 39800 / 44860 completed. | success: 39123 / no_enough_samples: 592 / low_score: 85
+Process 39900 / 44860 completed. | success: 39222 / no_enough_samples: 593 / low_score: 85
+Process 40000 / 44860 completed. | success: 39320 / no_enough_samples: 594 / low_score: 86
+Process 40100 / 44860 completed. | success: 39420 / no_enough_samples: 594 / low_score: 86
+Process 40200 / 44860 completed. | success: 39519 / no_enough_samples: 595 / low_score: 86
+Process 40300 / 44860 completed. | success: 39617 / no_enough_samples: 597 / low_score: 86
+Process 40400 / 44860 completed. | success: 39716 / no_enough_samples: 598 / low_score: 86
+Process 40500 / 44860 completed. | success: 39812 / no_enough_samples: 601 / low_score: 87
+Process 40600 / 44860 completed. | success: 39912 / no_enough_samples: 601 / low_score: 87
+Process 40700 / 44860 completed. | success: 40011 / no_enough_samples: 602 / low_score: 87
+Process 40800 / 44860 completed. | success: 40109 / no_enough_samples: 604 / low_score: 87
+Process 40900 / 44860 completed. | success: 40207 / no_enough_samples: 606 / low_score: 87
+Process 41000 / 44860 completed. | success: 40306 / no_enough_samples: 607 / low_score: 87
+Process 41100 / 44860 completed. | success: 40404 / no_enough_samples: 609 / low_score: 87
+Process 41200 / 44860 completed. | success: 40504 / no_enough_samples: 609 / low_score: 87
+Process 41300 / 44860 completed. | success: 40604 / no_enough_samples: 609 / low_score: 87
+Process 41400 / 44860 completed. | success: 40703 / no_enough_samples: 610 / low_score: 87
+Process 41500 / 44860 completed. | success: 40803 / no_enough_samples: 610 / low_score: 87
+Process 41600 / 44860 completed. | success: 40902 / no_enough_samples: 610 / low_score: 88
+Process 41700 / 44860 completed. | success: 41001 / no_enough_samples: 611 / low_score: 88
+Process 41800 / 44860 completed. | success: 41100 / no_enough_samples: 612 / low_score: 88
+Process 41900 / 44860 completed. | success: 41200 / no_enough_samples: 612 / low_score: 88
+Process 42000 / 44860 completed. | success: 41299 / no_enough_samples: 613 / low_score: 88
+Process 42100 / 44860 completed. | success: 41398 / no_enough_samples: 614 / low_score: 88
+Process 42200 / 44860 completed. | success: 41497 / no_enough_samples: 615 / low_score: 88
+Process 42300 / 44860 completed. | success: 41594 / no_enough_samples: 618 / low_score: 88
+Process 42400 / 44860 completed. | success: 41690 / no_enough_samples: 622 / low_score: 88
+Process 42500 / 44860 completed. | success: 41788 / no_enough_samples: 624 / low_score: 88
+Process 42600 / 44860 completed. | success: 41887 / no_enough_samples: 625 / low_score: 88
+Process 42700 / 44860 completed. | success: 41986 / no_enough_samples: 626 / low_score: 88
+Process 42800 / 44860 completed. | success: 42083 / no_enough_samples: 628 / low_score: 89
+Process 42900 / 44860 completed. | success: 42181 / no_enough_samples: 630 / low_score: 89
+Process 43000 / 44860 completed. | success: 42280 / no_enough_samples: 630 / low_score: 90
+Process 43100 / 44860 completed. | success: 42379 / no_enough_samples: 631 / low_score: 90
+Process 43200 / 44860 completed. | success: 42474 / no_enough_samples: 634 / low_score: 92
+Process 43300 / 44860 completed. | success: 42572 / no_enough_samples: 636 / low_score: 92
+Process 43400 / 44860 completed. | success: 42667 / no_enough_samples: 639 / low_score: 94
+Process 43500 / 44860 completed. | success: 42767 / no_enough_samples: 639 / low_score: 94
+Process 43600 / 44860 completed. | success: 42865 / no_enough_samples: 641 / low_score: 94
+Process 43700 / 44860 completed. | success: 42965 / no_enough_samples: 641 / low_score: 94
+Process 43800 / 44860 completed. | success: 43063 / no_enough_samples: 643 / low_score: 94
+Process 43900 / 44860 completed. | success: 43162 / no_enough_samples: 644 / low_score: 94
+Process 44000 / 44860 completed. | success: 43260 / no_enough_samples: 645 / low_score: 95
+Process 44100 / 44860 completed. | success: 43358 / no_enough_samples: 647 / low_score: 95
+Process 44200 / 44860 completed. | success: 43455 / no_enough_samples: 650 / low_score: 95
+Process 44300 / 44860 completed. | success: 43553 / no_enough_samples: 652 / low_score: 95
+Process 44400 / 44860 completed. | success: 43648 / no_enough_samples: 652 / low_score: 100
+Process 44500 / 44860 completed. | success: 43747 / no_enough_samples: 653 / low_score: 100
+Process 44600 / 44860 completed. | success: 43844 / no_enough_samples: 655 / low_score: 101
+Traceback (most recent call last):
+  File "sync_dataset.py", line 200, in main
+    id ,vid, result_desp, best_offset, best_score, num_samples = future.result()
+  File "/opt/conda/lib/python3.8/concurrent/futures/_base.py", line 432, in result
+    return self.__get_result()
+  File "/opt/conda/lib/python3.8/concurrent/futures/_base.py", line 388, in __get_result
+    raise self._exception
+  File "/opt/conda/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "sync_dataset.py", line 135, in process_worker
+    correct_data(ori_video_path, video_path, audio_path, rois_path, lms_path, best_offset,
+  File "sync_dataset.py", line 95, in correct_data
+    assert duration == get_media_duration(out_video_path) == get_media_duration(out_audio_path), \
+AssertionError: Expected duration: 94.96, out video: 94.96000000000001, out audio: 94.96000000000001
+out video path: /data2/CN-CVS/synced/s02445/s02445_001_00006/video.mp4, out audio path: /data2/CN-CVS/synced/s02445/s02445_001_00006/audio.wav
+Output dataset root: /data2/CN-CVS/synced
+Output list path: /data2/CN-CVS/dataset_sync_result.txt
+Traceback (most recent call last):
+  File "sync_dataset.py", line 235, in <module>
+    main()
+  File "sync_dataset.py", line 202, in main
+    data_items = list(gen_data_item(avsync_result_list, dataset_root, resume=output_result_list))
+  File "sync_dataset.py", line 148, in gen_data_item
+    completed_set = set(map(lambda line: line.strip().split()[0]))
+TypeError: map() must have at least two arguments.
+Output dataset root: /data2/CN-CVS/synced
+Output list path: /data2/CN-CVS/dataset_sync_result.txt
+Found {len(data_items)} data to process.
+Output dataset root: /data2/CN-CVS/synced
+Output list path: /data2/CN-CVS/dataset_sync_result.txt
+Found 171 data to process.
+Output dataset root: /data2/CN-CVS/synced
+Output list path: /data2/CN-CVS/dataset_sync_result.txt
+Found 171 data to process.
+Process 100 / 171 completed. | success: 95 / no_enough_samples: 5
+Finished.
+success: 163 / no_enough_samples: 6 / low_score: 2
