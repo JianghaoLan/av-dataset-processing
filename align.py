@@ -44,6 +44,7 @@ def align_crop_image(image, landmarks, transform_size=256):
     y = np.flipud(x) * [-1, 1]
     c = eye_avg + eye_to_mouth * 0.1
     quad = np.stack([c - x - y, c - x + y, c + x + y, c + x - y])
+    ori_quad = quad + 0.5
     qsize = np.hypot(*x) * 2
 
     img = Image.fromarray(image)
@@ -88,10 +89,11 @@ def align_crop_image(image, landmarks, transform_size=256):
         quad += pad[:2]
 
     # Transform
-    img = img.transform((transform_size, transform_size), Image.Transform.QUAD, (quad + 0.5).flatten(),
+    res = img.transform((transform_size, transform_size), Image.Transform.QUAD, (quad + 0.5).flatten(),
                         Image.Resampling.BILINEAR)
-
-    return np.array(img)
+    if return_quad:
+        return np.array(res), ori_quad
+    return np.array(res)
 
 
 def read_image_opencv(image_path):
