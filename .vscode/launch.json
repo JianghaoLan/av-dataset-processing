@@ -123,8 +123,9 @@
                 "--dataset_root", "/data2/CN-CVS/cncvs-stylegan/final",
                 "--result_list_path", "/data2/CN-CVS/cncvs-stylegan/result.txt",
                 "--output_path", "/data2/CN-CVS/filtered.txt",
-                "--min_width", "100",
-                "--blacklist", "/data2/CN-CVS/cncvs-stylegan/wrong_face_list.txt"
+                "--min_width", "200",       //100
+                "--blacklist", "/data2/CN-CVS/cncvs-stylegan/wrong_face_list.txt",
+                "--dry_run"
             ] 
         },
         {

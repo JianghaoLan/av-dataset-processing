@@ -98,7 +98,7 @@ def do_filter(data_list, filters):
     return filtered, filter_counter
 
 
-def filter_dataset(root, result_list, filters, out_path):
+def filter_dataset(root, result_list, filters, out_path, dry_run=False):
     data_list = list(gen_src_data(root, result_list))
     id_list = list(set(map(lambda data: data[0], data_list)))
     print('Dataset root:', root)
@@ -113,7 +113,8 @@ def filter_dataset(root, result_list, filters, out_path):
     for f in counter:
         print(f'Video number filtered by [{f.__class__.__name__}]: {counter[f]}')
     data_list.sort()
-    write_to_file(data_list, out_path)
+    if not dry_run:
+        write_to_file(data_list, out_path)
 
 
 def main():
@@ -123,6 +124,7 @@ def main():
     parser.add_argument('--output_path', type=str, required=True, help='root of filtered wrong data.')
     parser.add_argument('--min_width', default=None, type=float, help='Filter data with a min width.')
     parser.add_argument('--blacklist', default=None, type=str, help='Blacklist file path.')
+    parser.add_argument('--dry_run', action='store_true', help='Run this script with no output.')
     args = parser.parse_args()
 
     root = args.dataset_root
@@ -130,13 +132,14 @@ def main():
     output_path = args.output_path
     min_width: float = args.min_width
     blacklist: str = args.blacklist
+    dry_run: bool = args.dry_run
 
     filters = []
     if min_width is not None:
         filters.append(WidthDataFilter(min_width))
     if blacklist is not None:
         filters.append(BlacklistDataFilter(blacklist))
-    filter_dataset(root, result_list_path, filters, output_path)
+    filter_dataset(root, result_list_path, filters, output_path, dry_run)
 
 
 if __name__ == '__main__':
