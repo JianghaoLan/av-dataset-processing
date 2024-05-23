@@ -91,8 +91,6 @@ def align_crop_image(image, landmarks, transform_size=256):
     # Transform
     res = img.transform((transform_size, transform_size), Image.Transform.QUAD, (quad + 0.5).flatten(),
                         Image.Resampling.BILINEAR)
-    if return_quad:
-        return np.array(res), ori_quad
     return np.array(res)
 
 

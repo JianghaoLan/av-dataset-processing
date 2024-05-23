@@ -8,56 +8,11 @@ from PIL import Image
 import scipy
 from tqdm import tqdm
 
+from align import align_crop_image
 
-class FaceAlignment:
-    def __init__(self, ori_image, lms, quad, to_size, cropped_face):
-        self._ori_image = ori_image
-        self._lms = lms
-        self._quad = np.float32(quad)
-        self._to_size = to_size
-        self._cropped_face = cropped_face
-        
-    def _get_inverse_transform(self):
-        pts_src = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
-        pts_dst = self._quad + 0.5
-        return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
-    
-    def _get_transform(self):
-        pts_src = self._quad + 0.5
-        pts_dst = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
-        return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
-        
-    def get_lms(self):
-        return self._lms
-    
-    def get_cropped_lms(self):
-        M = self._get_transform()
-        p1 = np.hstack([self._lms, np.ones((len(self._lms), 1))])
-        return np.dot(M, p1.T).T
-    
-    def get_cropped_face(self):
-        return self._cropped_face
 
-    def get_synthesized_image(self, cropped_face):
-        M = self._get_transform()
-        transformed_face = cv2.warpAffine(cropped_face, M, (self._ori_image.shape[1], self._ori_image.shape[0]))
-        
-        # 创建一个掩码
-        mask = np.zeros_like(self._ori_image, dtype=np.float32)
-        pts_dst = self._quad + 0.5
-        cv2.fillConvexPoly(mask, pts_dst.astype(int), (1.0, 1.0, 1.0))
-        # 定义结构元素
-        kernel = np.ones((3, 3), np.uint8)
-        # 掩码稍微收缩，解决黑边问题
-        mask = cv2.erode(mask, kernel, iterations=1)
-        
-        syn_img = mask * transformed_face + (1 - mask) * self._ori_image
-        return syn_img
-    
-
-def get_face_alignment(image, landmarks, transform_size=256) -> FaceAlignment:
+def get_face_quad(lm):
     # Get estimated landmarks
-    lm = landmarks
     lm_chin = lm[0: 17]            # left-right
     lm_eyebrow_left = lm[17: 22]   # left-right
     lm_eyebrow_right = lm[22: 27]  # left-right
@@ -85,10 +40,14 @@ def get_face_alignment(image, landmarks, transform_size=256) -> FaceAlignment:
     y = np.flipud(x) * [-1, 1]
     c = eye_avg + eye_to_mouth * 0.1
     quad = np.stack([c - x - y, c - x + y, c + x + y, c + x - y])
-    ori_quad = quad.copy()
-    qsize = np.hypot(*x) * 2
+    return quad
 
-    img = Image.fromarray(image)
+
+def get_aligned_face(ori_img, quad, transform_size):
+    quad = quad.copy()
+    qsize = np.hypot(*(quad[1] - quad[0]))
+
+    img = Image.fromarray(ori_img)
     shrink = int(np.floor(qsize / transform_size * 0.5))
     if shrink > 1:
         rsize = (int(np.rint(float(img.size[0]) / shrink)), int(np.rint(float(img.size[1]) / shrink)))
@@ -133,15 +92,152 @@ def get_face_alignment(image, landmarks, transform_size=256) -> FaceAlignment:
     pts_src = np.float32(quad + 0.5)
     pts_dst = np.float32([[0, 0], [0, transform_size], [transform_size, transform_size], [transform_size, 0]])
     M = cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
-    cropped_face = cv2.warpAffine(img, M, (transform_size, transform_size))
+    return cv2.warpAffine(img, M, (transform_size, transform_size))
 
-    return FaceAlignment(image, landmarks, ori_quad, transform_size, cropped_face)
 
-    # Transform
-    res = img.transform((transform_size, transform_size), Image.Transform.QUAD, (quad + 0.5).flatten(),
-                        Image.Resampling.BILINEAR)
+class Alignment:
+    def __init__(self, lms_68, to_size):
+        self._lms = lms_68
+        self._to_size = to_size
+        self._quad = np.float32(get_face_quad(lms_68))
+        
+    def get_inverse_transform(self):
+        pts_src = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
+        pts_dst = self._quad + 0.5
+        return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
+
+    def get_transform(self):
+        pts_src = self._quad + 0.5
+        pts_dst = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
+        return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
     
-    return np.array(res)
+    def get_aligned_lms(self):
+        M = self.get_transform()
+        p1 = np.hstack([self._lms, np.ones((len(self._lms), 1))])
+        return np.dot(M, p1.T).T
+    
+    def get_lms(self):
+        return self._lms
+    
+    def get_aligned_face(self, ori_img):
+        return get_aligned_face(ori_img, self._quad, self._to_size)
+
+    def get_synthesized_image(self, ori_img, face_img):
+        M = self.get_inverse_transform()
+        transformed_face = cv2.warpAffine(face_img, M, (ori_img.shape[1], ori_img.shape[0]))
+        
+        # 创建一个掩码
+        mask = np.zeros_like(ori_img, dtype=np.float32)
+        pts_dst = self._quad + 0.5
+        cv2.fillConvexPoly(mask, pts_dst.astype(int), (1.0, 1.0, 1.0))
+        # 定义结构元素
+        kernel = np.ones((3, 3), np.uint8)
+        # 掩码微微收缩，解决黑边问题
+        mask = cv2.erode(mask, kernel, iterations=1)
+        
+        syn_img = mask * transformed_face + (1 - mask) * ori_img
+        return syn_img
+
+
+# class FaceAlignHelper:
+#     def __init__(self, ori_image, lms, quad, to_size, cropped_face):
+#         self._ori_image = ori_image
+#         self._lms = lms
+#         self._quad = np.float32(quad)
+#         self._to_size = to_size
+#         self._cropped_face = cropped_face
+        
+#     def _get_inverse_transform(self):
+#         pts_src = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
+#         pts_dst = self._quad + 0.5
+#         return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
+    
+#     def _get_transform(self):
+#         pts_src = self._quad + 0.5
+#         pts_dst = np.float32([[0, 0], [0, self._to_size], [self._to_size, self._to_size], [self._to_size, 0]])
+#         return cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
+        
+#     def get_lms(self):
+#         return self._lms
+    
+#     def get_cropped_lms(self):
+#         M = self._get_transform()
+#         p1 = np.hstack([self._lms, np.ones((len(self._lms), 1))])
+#         return np.dot(M, p1.T).T
+    
+#     def get_cropped_face(self):
+#         return self._cropped_face
+
+#     def get_synthesized_image(self, cropped_face):
+#         M = self._get_inverse_transform()
+#         transformed_face = cv2.warpAffine(cropped_face, M, (self._ori_image.shape[1], self._ori_image.shape[0]))
+        
+#         # 创建一个掩码
+#         mask = np.zeros_like(self._ori_image, dtype=np.float32)
+#         pts_dst = self._quad + 0.5
+#         cv2.fillConvexPoly(mask, pts_dst.astype(int), (1.0, 1.0, 1.0))
+#         # 定义结构元素
+#         kernel = np.ones((3, 3), np.uint8)
+#         # 掩码稍微收缩，解决黑边问题
+#         mask = cv2.erode(mask, kernel, iterations=1)
+        
+#         syn_img = mask * transformed_face + (1 - mask) * self._ori_image
+#         return syn_img
+    
+
+# def get_face_alignment(ori_img, landmarks, transform_size=256) -> FaceAlignHelper:
+#     ori_quad = get_face_quad(landmarks)
+#     quad = ori_quad.copy()
+#     qsize = np.hypot(*x) * 2
+
+#     img = Image.fromarray(ori_img)
+#     shrink = int(np.floor(qsize / transform_size * 0.5))
+#     if shrink > 1:
+#         rsize = (int(np.rint(float(img.size[0]) / shrink)), int(np.rint(float(img.size[1]) / shrink)))
+#         img = img.resize(rsize, Image.Resampling.LANCZOS)
+#         quad /= shrink
+#         qsize /= shrink
+
+#     # Crop
+#     border = max(int(np.rint(qsize * 0.1)), 3)
+#     crop = (int(np.floor(min(quad[:, 0]))), int(np.floor(min(quad[:, 1]))), int(np.ceil(max(quad[:, 0]))),
+#             int(np.ceil(max(quad[:, 1]))))
+#     crop = (max(crop[0] - border, 0), max(crop[1] - border, 0), min(crop[2] + border, img.size[0]),
+#             min(crop[3] + border, img.size[1]))
+#     if crop[2] - crop[0] < img.size[0] or crop[3] - crop[1] < img.size[1]:
+#         img = img.crop(crop)
+#         quad -= crop[0:2]
+
+#     # Pad
+#     pad = (int(np.floor(min(quad[:, 0]))), int(np.floor(min(quad[:, 1]))), int(np.ceil(max(quad[:, 0]))),
+#            int(np.ceil(max(quad[:, 1]))))
+#     pad = (max(-pad[0] + border, 0), max(-pad[1] + border, 0), max(pad[2] - img.size[0] + border, 0),
+#            max(pad[3] - img.size[1] + border, 0))
+#     enable_padding = True
+#     if enable_padding and max(pad) > border - 4:
+#         pad = np.maximum(pad, int(np.rint(qsize * 0.3)))
+#         img = np.pad(np.float32(img), ((pad[1], pad[3]), (pad[0], pad[2]), (0, 0)), 'reflect')
+#         h, w, _ = img.shape
+#         y, x, _ = np.ogrid[:h, :w, :1]
+#         # mask = np.maximum(1.0 - np.minimum(np.float32(x) / pad[0], np.float32(w - 1 - x) / pad[2]),
+#         #                   1.0 - np.minimum(np.float32(y) / pad[1], np.float32(h - 1 - y) / pad[3]))
+#         mask = np.maximum(1.0 - np.minimum(np.float32(x) / (pad[0] + 1e-12), np.float32(w - 1 - x) / (pad[2] + 1e-12)),
+#                           1.0 - np.minimum(np.float32(y) / (pad[1] + 1e-12), np.float32(h - 1 - y) / (pad[3] + 1e-12)))
+
+#         blur = qsize * 0.01
+#         img += (scipy.ndimage.gaussian_filter(img, [blur, blur, 0]) - img) * np.clip(mask * 3.0 + 1.0, 0.0, 1.0)
+#         img += (np.median(img, axis=(0, 1)) - img) * np.clip(mask, 0.0, 1.0)
+#         img = Image.fromarray(np.uint8(np.clip(np.rint(img), 0, 255)), 'RGB')
+
+#         quad += pad[:2]
+    
+#     img = np.array(img)
+#     pts_src = np.float32(quad + 0.5)
+#     pts_dst = np.float32([[0, 0], [0, transform_size], [transform_size, transform_size], [transform_size, 0]])
+#     M = cv2.getAffineTransform(pts_src[:3], pts_dst[:3])
+#     cropped_face = cv2.warpAffine(img, M, (transform_size, transform_size))
+
+#     return FaceAlignHelper(ori_img, landmarks, ori_quad, transform_size, cropped_face)
 
 
 VIDEO_EXT = ('.mp4')
@@ -234,16 +330,18 @@ def main():
             # print("Error: Could not read frame.")
             break
         img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        
+        # img = img[:, 800:, :]
+        # lms[frame_idx][:, 0] -= 800
 
         # # img = align_image(le, img, args.size, args.conf_threshold, args.keep_largest)
-        # cropped_img, quad = align_crop_image(image=img,
-        #         landmarks=lms[frame_idx],
-        #         transform_size=args.size,
-        #         return_quad=True)
+        cropped_img = align_crop_image(image=img,
+                landmarks=lms[frame_idx],
+                transform_size=args.size)
 
-        # # Save output image
-        # output_path = osp.join(dst_dir, basename, f'{frame_idx:03}.png')
-        # cv2.imwrite(output_path, cv2.cvtColor(cropped_img.copy(), cv2.COLOR_RGB2BGR))
+        # Save output image
+        output_path = osp.join(dst_dir, basename, f'test-{frame_idx:03}.png')
+        cv2.imwrite(output_path, cv2.cvtColor(cropped_img.copy(), cv2.COLOR_RGB2BGR))
         
         # def save_temp_img_with_quad():
         #     temp_with_quad = img.copy()
@@ -253,24 +351,26 @@ def main():
         #     cv2.imwrite(output_path_ori, cv2.cvtColor(temp_with_quad.copy(), cv2.COLOR_RGB2BGR))
         # save_temp_img_with_quad()
         
-        align = get_face_alignment(img.copy(), lms[frame_idx], args.size)
+        # align = get_face_alignment(img.copy(), lms[frame_idx], args.size)
+        
+        align = Alignment(lms[frame_idx], args.size)
 
-        cropped = align.get_cropped_face()
-        output_path = osp.join(dst_dir, basename, f'{frame_idx:03}-affine.png')
+        cropped = align.get_aligned_face(img)
+        output_path = osp.join(dst_dir, basename, f'test-{frame_idx:03}-affine.png')
         cv2.imwrite(output_path, cv2.cvtColor(cropped.copy(), cv2.COLOR_RGB2BGR))
         
-        cropped_lms = align.get_cropped_lms()
+        cropped_lms = align.get_aligned_lms()
         cropped_with_lms = cropped.copy()
         for p in cropped_lms:
             cv2.circle(cropped_with_lms, p.astype(int), radius=2, color=(255, 0, 0), thickness=-1)  # 用绿色点标记，半径为5
-        output_path = osp.join(dst_dir, basename, f'{frame_idx:03}-lms.png')
+        output_path = osp.join(dst_dir, basename, f'test-{frame_idx:03}-lms.png')
         cv2.imwrite(output_path, cv2.cvtColor(cropped_with_lms.copy(), cv2.COLOR_RGB2BGR))
         
-        syn_img = align.get_synthesized_image(cropped)
-        output_path = osp.join(dst_dir, basename, f'{frame_idx:03}-syn.png')
+        syn_img = align.get_synthesized_image(img, cropped)
+        output_path = osp.join(dst_dir, basename, f'test-{frame_idx:03}-syn.png')
         cv2.imwrite(output_path, cv2.cvtColor(syn_img.copy(), cv2.COLOR_RGB2BGR))
         
-        output_path = osp.join(dst_dir, basename, f'{frame_idx:03}-ori1.png')
+        output_path = osp.join(dst_dir, basename, f'test-{frame_idx:03}-ori1.png')
         cv2.imwrite(output_path, cv2.cvtColor(img.copy(), cv2.COLOR_RGB2BGR))
         
         break

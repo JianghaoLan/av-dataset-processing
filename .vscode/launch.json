@@ -193,6 +193,13 @@
         "/data2/CN-CVS/filtered_synced.txt"
         // "--dry_run"
       ]
+    },
+    {
+      "name": "gfpgan_roi_test.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "gfpgan_roi_test.py",
+      "console": "integratedTerminal"
     }
   ]
 }
