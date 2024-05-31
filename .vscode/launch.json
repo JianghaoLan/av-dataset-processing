@@ -5,18 +5,26 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "whisper.audio2feature",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "whisper.audio2feature"
+    },
+    {
       "name": "face_align_helper.py",
       "type": "debugpy",
       "request": "launch",
       "program": "face_align_helper.py",
       "console": "integratedTerminal",
       "args": [
-        "--src-video-path", "C:\\Users\\52860\\Desktop\\temp\\cncvs\\s00027_001_00006\\ori_video.mp4",
-        "--src-landmarks-path", "C:\\Users\\52860\\Desktop\\temp\\cncvs\\s00027_001_00006\\landmarks.json",
-        "--dst-dir", "output"
+        "--src-video-path",
+        "C:\\Users\\52860\\Desktop\\temp\\cncvs\\s00027_001_00006\\ori_video.mp4",
+        "--src-landmarks-path",
+        "C:\\Users\\52860\\Desktop\\temp\\cncvs\\s00027_001_00006\\landmarks.json",
+        "--dst-dir",
+        "output"
       ]
     },
-
     {
       "name": "Python Debugger: cncvs_download_and_process.py",
       "type": "debugpy",
@@ -200,6 +208,46 @@
       "request": "launch",
       "program": "gfpgan_roi_test.py",
       "console": "integratedTerminal"
-    }
+    },
+    {
+      "name": "transform_lms.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "transform_lms.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--dataset_root",
+        "/data2/CN-CVS/synced",
+        "--data_list_path",
+        "/data2/CN-CVS/filtered_synced.txt",
+        "--to_size",
+        "512",
+        // "--out_path",
+        // "/data2/CN-CVS/aligned_lms_512.pkl",
+        "--max_workers",
+        "4"
+      ]
+    },
+    {
+      "name": "crop_component.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "crop_component.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--dataset_root",
+        "/data2/CN-CVS/synced",
+        "--output_root",
+        "/data2/nfs/mouth_er12_copy",
+        "--data_list_path",
+        "/data2/CN-CVS/filtered_synced.txt",
+        "--component",
+        "mouth",
+        "--max_workers",
+        "8",
+        "--enlarge_ratio",
+        "1.2"
+      ]
+    },
   ]
 }

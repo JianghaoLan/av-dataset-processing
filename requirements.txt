@@ -6,3 +6,8 @@ opencv-python
 scikit-image
 tqdm
 matplotlib
+
+# # whisper
+# ffmpeg-python
+# soundfile==0.12.1
+# transformers==4.39.2

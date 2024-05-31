@@ -4,17 +4,27 @@ import random
 import cv2
 import json
 
+import numpy as np
+
 from crop_dataset import gen_src_data
+from utils.lms68_utils import get_left_eye, get_mouth, get_right_eye, get_square_roi
 
 
 def load_json(lms_path):
     with open(lms_path) as f:
         return json.load(f)
+    
+
+def draw_rectangle(image, roi, color=(255, 191, 0)):
+    roi = roi.astype(int)
+    pt1 = roi[:2]
+    pt2 = roi[2:]
+    cv2.rectangle(image, pt1, pt2, color, 4)
 
 
 def draw_lm(image, lm, roi):
     assert len(lm) == 68
-    assert len(roi) == 5
+    assert roi is None or len(roi) == 5
     
     # 给定坐标和半径画一个点
     radius = 5  # 半径
@@ -35,8 +45,17 @@ def draw_lm(image, lm, roi):
             i += 1
             
     # draw roi
-    x1, y1, x2, y2 = map(int, roi[:4])
-    cv2.rectangle(image, (x1, y1), (x2, y2), (255, 191, 0), 4)
+    if roi is not None:
+        draw_rectangle(image, roi, (255, 191, 0))
+    
+    # draw components
+    mouth_roi = get_square_roi(get_mouth(lm), enlarge_ratio=1.4)
+    l_eye_roi = get_square_roi(get_left_eye(lm))
+    r_eye_roi = get_square_roi(get_right_eye(lm))
+    draw_rectangle(image, mouth_roi, (0, 0, 0))
+    draw_rectangle(image, l_eye_roi, (0, 0, 0))
+    draw_rectangle(image, r_eye_roi, (0, 0, 0))
+    
 
 
 def show_video_lms(src_path, src_lms_path, src_rois_path, dst_path):
@@ -52,9 +71,9 @@ def show_video_lms(src_path, src_lms_path, src_rois_path, dst_path):
     output_video = cv2.VideoWriter(dst_path, fourcc, fps, (frame_width, frame_height))
     
     lms = load_json(src_lms_path)
-    rois = load_json(src_rois_path)
+    rois = load_json(src_rois_path) if src_rois_path is not None else None
     lms_it = iter(lms)
-    rois_it = iter(rois)
+    rois_it = iter(rois) if rois is not None else None
 
     # 读取视频帧并修改每一帧
     while True:
@@ -64,8 +83,8 @@ def show_video_lms(src_path, src_lms_path, src_rois_path, dst_path):
             break  # 视频结束，退出循环
         
         lm = next(lms_it)
-        roi = next(rois_it)
-        draw_lm(frame, lm, roi)
+        roi = next(rois_it) if rois_it is not None else None
+        draw_lm(frame, np.asarray(lm, dtype=np.float32), roi)
 
         # 将修改后的帧写入输出视频文件
         output_video.write(frame)
@@ -106,7 +125,7 @@ if __name__ == '__main__':
     #                '/data2/CN-CVS/cncvs-stylegan/final/s02148/s02148_001_00020/landmarks.json', 
     #                '/data2/CN-CVS/cncvs-stylegan/final/s02148/s02148_001_00020/rois.json',
     #                './lms_test.mp4')
-    show_video_lms('/data2/CN-CVS/cncvs-stylegan/final/s01222/s01222_001_00021/ori_video.mp4', 
-                   '/data2/CN-CVS/cncvs-stylegan/final/s01222/s01222_001_00021/landmarks.json', 
-                   '/data2/CN-CVS/cncvs-stylegan/final/s01222/s01222_001_00021/rois.json',
-                   './lms_test2.mp4')
+    show_video_lms('/data2/CN-CVS/synced/s00005/s00005_001_00006/video.mp4', 
+                   '/data2/CN-CVS/synced/s00005/s00005_001_00006/aligned_lms.json', 
+                   None,
+                   './output/lms_test5.mp4')
