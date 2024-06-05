@@ -74,12 +74,48 @@ def crop_component(src_video_path: str, src_lms_path: str, component: str, dst_d
         frame_count += 1
     # 释放视频对象
     cap.release()
+
+
+def crop_component_to_video(src_video_path: str, src_lms_path: str, component: str, dst_dir: str,
+                            lm_img_size: int=512, out_size: int=None, enlarge_ratio: float=1.0, ext: str='.mp4'):
+    assert out_size is not None
+    lms = load_json(src_lms_path)
+    lms_it = iter(lms)
     
-    # # test
-    # out.release()
+    cap = cv2.VideoCapture(src_video_path)
+    if not cap.isOpened():
+        print("Error: Unable to open video file.")
+        return
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    
+    dst_path = os.path.join(dst_dir, f'video{ext}')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 使用 'mp4v' 编码器
+    out = cv2.VideoWriter(dst_path, fourcc, fps, (out_size, out_size))
+    
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        assert frame.shape[:2] == (lm_img_size, lm_img_size)
+        frame_lms = next(lms_it)
+        frame_lms = np.asarray(frame_lms, dtype=np.float32)
+        comp_lms = get_component_lms(frame_lms, component)
+        comp_roi = get_square_roi(comp_lms, enlarge_ratio=enlarge_ratio)
+        
+        comp_img = pad_crop(frame, comp_roi)
+        if out_size is not None and comp_img.shape[:2] != (out_size, out_size):
+            comp_img = cv2.resize(comp_img, (out_size, out_size))
+
+        out.write(comp_img)
+        frame_count += 1
+    # 释放视频对象
+    cap.release()
+    out.release()
 
 
-def worker(data_path, to_path, component, out_size=None, enlarge_ratio=1.0):
+def worker(data_path, to_path, component, out_size=None, enlarge_ratio=1.0, out_type='images', cp_audio=True):
+    assert out_type in ['images', 'video']
     if os.path.exists(to_path):
         shutil.rmtree(to_path)
     os.makedirs(to_path)
@@ -88,12 +124,16 @@ def worker(data_path, to_path, component, out_size=None, enlarge_ratio=1.0):
     audio_path = os.path.join(data_path, 'audio.wav')
     landmarks_path = os.path.join(data_path, 'aligned_lms.json')
     # rois_path = os.path.join(data_path, 'rois.json')
-    
-    crop_component(video_path, landmarks_path, component, to_path, 512, out_size=out_size, enlarge_ratio=enlarge_ratio)
-    shutil.copyfile(audio_path, os.path.join(to_path, 'audio.wav'))
+    if out_type == 'image_folder':
+        crop_component(video_path, landmarks_path, component, to_path, 512, out_size=out_size, enlarge_ratio=enlarge_ratio)
+    elif out_type == 'video':
+        crop_component_to_video(video_path, landmarks_path, component, to_path, 512, out_size=out_size, enlarge_ratio=enlarge_ratio)
+    if cp_audio:
+        shutil.copyfile(audio_path, os.path.join(to_path, 'audio.wav'))
 
 
-def process_dataset(dataset_root, output_root, data_list_path, component, max_workers=8, resize=None, enlarge_ratio=1.0):
+def process_dataset(dataset_root, output_root, data_list_path, component, max_workers=8, resize=None, 
+                    enlarge_ratio=1.0, out_type: str='images', cp_audio: bool=True):
     src_datas = list(gen_src_data(dataset_root, data_list_path))
     id_num = len(set(map(lambda x: x[0], src_datas)))
     
@@ -101,7 +141,9 @@ def process_dataset(dataset_root, output_root, data_list_path, component, max_wo
     print('Total id num:', id_num)
     print('From dir:', dataset_root)
     print('To dir:', output_root)
+    print('Out type:', out_type)
     print('Resize to:', resize)
+    print('Copy audio:', cp_audio)
     print('Processing...')
 
     with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as executor:
@@ -134,6 +176,8 @@ def main():
     parser.add_argument('--max_workers', type=int, help='max num of workers of process pool')
     parser.add_argument('--resize', type=int, default=None, help='resize each image to specific size')
     parser.add_argument('--enlarge_ratio', type=float, default=1.2, help='enlarge ratio.')
+    parser.add_argument('--out_type', type=str, default='images', help='Out type: images or video .')
+    parser.add_argument('--cp_audio', type=bool, default=True, help='Whether to copy audio to output dir or not.')
     args = parser.parse_args()
 
     dataset_root = args.dataset_root
@@ -143,8 +187,11 @@ def main():
     max_workers = args.max_workers
     resize = args.resize
     enlarge_ratio = args.enlarge_ratio
+    out_type = args.out_type
+    cp_audio = args.cp_audio
 
-    process_dataset(dataset_root, output_root, data_list_path, component, max_workers=max_workers, resize=resize, enlarge_ratio=enlarge_ratio)
+    process_dataset(dataset_root, output_root, data_list_path, component, max_workers=max_workers, resize=resize, 
+                    enlarge_ratio=enlarge_ratio, out_type=out_type, cp_audio=cp_audio)
     
     # crop_component('/data2/CN-CVS/synced/s00005/s00005_001_00006/video.mp4', 
     #                '/data2/CN-CVS/synced/s00005/s00005_001_00006/aligned_lms.json', 
