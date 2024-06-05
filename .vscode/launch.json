@@ -61,14 +61,14 @@
       "console": "integratedTerminal",
       "args": [
         "--dataset_root",
-        "/data2/CN-CVS/synced",
+        "/data/CNCVS/synced",
         "--output_root",
-        "/data2/CN-CVS/wav2lip_format_synced",
+        "/data2/CNCVS/wav2lip_format_synced",
         "--data_list_path",
-        "/data2/CN-CVS/filtered_synced.txt",
+        "/data/CNCVS/filtered_synced.txt",
         "--copy_rois_and_lms",
         "--max_workers",
-        "4"
+        "8"
       ]
     },
     {
@@ -236,15 +236,15 @@
       "console": "integratedTerminal",
       "args": [
         "--dataset_root",
-        "/data2/CN-CVS/synced",
+        "/data/CNCVS/synced",
         "--output_root",
-        "/data2/nfs/mouth_er12_copy",
+        "/data2/CNCVS/mouth_er12",
         "--data_list_path",
-        "/data2/CN-CVS/filtered_synced.txt",
+        "/data/CNCVS/filtered_synced.txt",
         "--component",
         "mouth",
         "--max_workers",
-        "8",
+        "4",
         "--enlarge_ratio",
         "1.2"
       ]
