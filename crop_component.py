@@ -108,7 +108,6 @@ def crop_component_to_video(src_video_path: str, src_lms_path: str, component: s
             comp_img = cv2.resize(comp_img, (out_size, out_size))
 
         out.write(comp_img)
-        frame_count += 1
     # 释放视频对象
     cap.release()
     out.release()
@@ -124,7 +123,7 @@ def worker(data_path, to_path, component, out_size=None, enlarge_ratio=1.0, out_
     audio_path = os.path.join(data_path, 'audio.wav')
     landmarks_path = os.path.join(data_path, 'aligned_lms.json')
     # rois_path = os.path.join(data_path, 'rois.json')
-    if out_type == 'image_folder':
+    if out_type == 'images':
         crop_component(video_path, landmarks_path, component, to_path, 512, out_size=out_size, enlarge_ratio=enlarge_ratio)
     elif out_type == 'video':
         crop_component_to_video(video_path, landmarks_path, component, to_path, 512, out_size=out_size, enlarge_ratio=enlarge_ratio)
@@ -134,6 +133,8 @@ def worker(data_path, to_path, component, out_size=None, enlarge_ratio=1.0, out_
 
 def process_dataset(dataset_root, output_root, data_list_path, component, max_workers=8, resize=None, 
                     enlarge_ratio=1.0, out_type: str='images', cp_audio: bool=True):
+    assert out_type in ['images', 'video']
+
     src_datas = list(gen_src_data(dataset_root, data_list_path))
     id_num = len(set(map(lambda x: x[0], src_datas)))
     
@@ -151,8 +152,8 @@ def process_dataset(dataset_root, output_root, data_list_path, component, max_wo
         for id, vid, data_path in src_datas:
             dst_dir = os.path.join(output_root, id, vid)
 
-            f = executor.submit(worker, data_path, dst_dir, component, resize, enlarge_ratio)
-            # convert_one(data_path, dst_dir, cp_rois_and_lms)
+            f = executor.submit(worker, data_path, dst_dir, component, resize, enlarge_ratio, out_type, cp_audio)
+            # # convert_one(data_path, dst_dir, cp_rois_and_lms)
             futures.append(f)
         
         for i, f in enumerate(concurrent.futures.as_completed(futures), 1):
@@ -177,7 +178,7 @@ def main():
     parser.add_argument('--resize', type=int, default=None, help='resize each image to specific size')
     parser.add_argument('--enlarge_ratio', type=float, default=1.2, help='enlarge ratio.')
     parser.add_argument('--out_type', type=str, default='images', help='Out type: images or video .')
-    parser.add_argument('--cp_audio', type=bool, default=True, help='Whether to copy audio to output dir or not.')
+    parser.add_argument('--no_audio', action='store_false', dest='cp_audio', help='Donot copy audio to output dir.')
     args = parser.parse_args()
 
     dataset_root = args.dataset_root

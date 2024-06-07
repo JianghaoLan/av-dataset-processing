@@ -235,18 +235,15 @@
       "program": "crop_component.py",
       "console": "integratedTerminal",
       "args": [
-        "--dataset_root",
-        "/data/CNCVS/synced",
-        "--output_root",
-        "/data2/CNCVS/mouth_er12",
-        "--data_list_path",
-        "/data/CNCVS/filtered_synced.txt",
-        "--component",
-        "mouth",
-        "--max_workers",
-        "4",
-        "--enlarge_ratio",
-        "1.2"
+        "--dataset_root", "/data/CNCVS/synced",
+        "--output_root", "/data2/CNCVS/mouth_er12_video",
+        "--data_list_path", "/data/CNCVS/filtered_synced.txt",
+        "--component", "mouth",
+        "--max_workers", "4",
+        "--enlarge_ratio", "1.2",
+        "--out_type", "video",
+        "--no_audio",
+        "--resize", "64"
       ]
     },
   ]
