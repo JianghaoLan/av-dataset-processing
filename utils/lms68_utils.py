@@ -35,6 +35,11 @@ def get_roi(lms):
     return np.concatenate([top_left, bottom_right], axis=0)
 
 
+def get_center(lms):
+    roi = get_roi(lms)
+    return (roi[:2] + roi[2:]) / 2
+
+
 def get_square_roi(lms, enlarge_ratio=1.0):
     roi = get_roi(lms)
     top_left = roi[:2]
