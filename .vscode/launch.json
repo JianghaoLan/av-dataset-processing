@@ -91,6 +91,24 @@
       ]
     },
     {
+      "name": "crop_dataset.py -- to_video",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "crop_dataset.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--dataset_root", "/data/CNCVS/synced",
+        "--data_list_path", "/data/CNCVS/filtered_synced.txt",
+        "--crop_type", "face_no_jitter",
+        "--resize", "256",
+        "--output_root", "/data/CNCVS/synced_face_no_jitter",
+        "--output_type", "video",
+        // "--output_data_list_path", "/data2/CN-CVS/cropped_data_list.txt",
+        "--max_workers", "16",
+        "--no_audio"
+      ]
+    },
+    {
       "name": "split_dataset.py",
       "type": "debugpy",
       "request": "launch",
@@ -236,14 +254,40 @@
       "console": "integratedTerminal",
       "args": [
         "--dataset_root", "/data/CNCVS/synced",
-        "--output_root", "/data2/CNCVS/mouth_er12_video",
+        "--output_root", "/data2/CNCVS/mouth_ori_128_er18_offset02_video",
         "--data_list_path", "/data/CNCVS/filtered_synced.txt",
         "--component", "mouth",
-        "--max_workers", "4",
-        "--enlarge_ratio", "1.2",
+        "--max_workers", "8",
+        "--enlarge_ratio", "1.8",   // 1.2
         "--out_type", "video",
         "--no_audio",
-        "--resize", "64"
+        "--resize", "128",           // 64
+        "--offset_y", "0.2",           // 64
+        "--src_type", "ori"       // ffhq
+      ]
+    },
+    {
+      "name": "subset.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "subset.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--filelist", "/data/CNCVS/test_hd_synced.txt",
+        "--max_videos_per_id", "2",
+        "--out_filelist", "/data/CNCVS/test_hd_synced_maxPerId2.txt"
+      ]
+    },
+    {
+      "name": "copy_dataset.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "copy_dataset.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--filelist", "/data/CNCVS/test_hd_synced_maxPerId2.txt",
+        "--dataset_root", "/data/CNCVS/synced",
+        "--out_dataset_root", "/data/CNCVS/synced_test_hd_maxPerId2"
       ]
     },
   ]
